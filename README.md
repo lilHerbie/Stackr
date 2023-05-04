@@ -1,9 +1,9 @@
 # Stackr
 
-Door middel van een 'step-by-step' formulier kan men vrachtwagens aanmaken met de volgende kenmerken:
-  Lengte/Breedte (met een maximum)
-  Aankomst interval (in seconden)
-  Type: Koud transport | Breekbaar transport | Algemeen transport | Pallets | Snelkoerier
+1. Door middel van een 'step-by-step' formulier kan men vrachtwagens aanmaken met de volgende kenmerken:
+  a. Lengte/Breedte (met een maximum)
+  b. Aankomst interval (in seconden)
+  c. Type: Koud transport | Breekbaar transport | Algemeen transport | Pallets | Snelkoerier
 Pakketten worden gegenereerd op een virtuele lopende band. De mogelijke vormen van de pakketten: https://en.wikipedia.org/wiki/Tetromino
 De vormen moeten ook echt zo worden geplaatst in de vrachtwagen. Dus geen tetrisvorm in een vierkant blok!
 Er kunnen tijdens het draaien van de simulatie meerdere lopende banden worden gemaakt
