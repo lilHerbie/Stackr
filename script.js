@@ -7,6 +7,7 @@ class Truck{
     }
 }
 
+let Trucks = [];
 
 const TransportTypes = {
     ColdTransport : "Cold tranport",
@@ -22,10 +23,32 @@ truckFormButton.addEventListener('click', submitForm);
 
 
 function submitForm(){
-    // let height = document.getElementById('height');
-    // let width = document.getElementById('width');
-    // let transportType = document.getElementById('transportSelect');
-    // let interval = document.getElementById('interval');
+    let length = document.getElementById('length');
+    let width = document.getElementById('width');
+    let transportType = document.getElementById('transportSelect');
+    let interval = document.getElementById('interval');
+    let truck = new Truck(transportType, length, width, interval)
+
+    Trucks.push(truck);
+    addTruck(truck);
+
     truckFormButton.innerHTML = "verstuurd";
 
 }
+
+let truckContainer = document.getElementById('TruckContainer');
+
+function addTruck(truck){
+    let truckElement = document.createElement("div");
+    truckElement.className = "Truck";
+    truckElement.width = truck.width;
+    truckElement.length = truck.length;
+    let img = document.createElement('img');
+    img.src = 'Assets/truck.png';
+    img.width = truck.width;
+    img.length = truck.length;
+
+    truckElement.appendChild(img);
+    truckContainer.appendChild(truckElement);
+}
+

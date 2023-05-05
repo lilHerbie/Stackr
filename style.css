@@ -3,14 +3,22 @@ body {
     color: white;
 }
 
-.TruckForm{
+.FlexColumn{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.TruckForm{
+    
     margin: auto;
     width: 25%;
     background-color: beige;
     color: black;
+}
+
+.Truck{
+    background-color: white;
 }
 
 .NumberInput{
