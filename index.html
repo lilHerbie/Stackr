@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<script src="script.js"></script>
-<script src="script1.js"></script>
+<script src="script.js" defer></script>
+<script src="script1.js" defer></script>
 
 <html lang="en">
 <head>
@@ -12,11 +12,24 @@
     <title>Document</title>
 </head>
 <body>
-    <form>
+    <form class="TruckForm">
         <label>Lengte</label>
-        <input type="number">
+        <input class="NumberInput" type="number" id="length">
         <label>Breedte</label>
-        <input type="number">
+        <input class="NumberInput" type="number" id="width">
+        <label>Type transport</label>
+        <select name="transportSelect" id="transportSelect">
+            <option value="ColdTransport">Cold tranport</option>
+            <option value="FragileTransport">Fragile transport</option>
+            <option value="GeneralTransport">General transport</option>
+            <option value="Pallets">Pallets</option>
+            <option value="FastTransport">Fast transport</option>
+        </select>
+        <label>Interval</label>
+        <input class="NumberInput" type="number" id="interval">
+        <button></button>
+
+
     </form>
 </body>
 </html>

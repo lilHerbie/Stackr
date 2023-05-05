@@ -2,3 +2,22 @@ body {
     background-color: black;
     color: white;
 }
+
+.TruckForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 25%;
+    background-color: beige;
+    color: black;
+}
+
+.NumberInput{
+    width: 70px;
+}
+
+button{
+    width: 100px;
+
+}

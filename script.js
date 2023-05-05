@@ -16,4 +16,22 @@ const TransportTypes = {
     FastTransport : "Fast transport"
 }
 
+let truckFormButton = document.querySelector('button');
 
+truckFormButton.addEventListener('click', submitForm);
+
+
+function submitForm(){
+    // let height = document.getElementById('height');
+    // let width = document.getElementById('width');
+    // let transportType = document.getElementById('transportSelect');
+    // let interval = document.getElementById('interval');
+    truckFormButton.innerHTML = "verstuurd";
+
+}
+
+function setUp(){
+    truckFormButton.innerHTML = "gek";
+}
+
+setUp();
