@@ -29,9 +29,3 @@ function submitForm(){
     truckFormButton.innerHTML = "verstuurd";
 
 }
-
-function setUp(){
-    truckFormButton.innerHTML = "gek";
-}
-
-setUp();
