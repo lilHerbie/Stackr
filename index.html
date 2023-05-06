@@ -4,6 +4,7 @@
 <script src="script1.js" defer></script>
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,26 +12,54 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
+
 <body>
-    <div class="FlexColumn TruckForm">
-        <label>Lengte</label>
-        <input class="NumberInput" type="number" id="length">
-        <label>Breedte</label>
-        <input class="NumberInput" type="number" id="width">
-        <label>Type transport</label>
-        <select name="transportSelect" id="transportSelect">
-            <option value="ColdTransport">Cold tranport</option>
-            <option value="FragileTransport">Fragile transport</option>
-            <option value="GeneralTransport">General transport</option>
-            <option value="Pallets">Pallets</option>
-            <option value="FastTransport">Fast transport</option>
-        </select>
-        <label>Interval</label>
-        <input class="NumberInput" type="number" id="interval">
-        <button>versturen</button>
-    </div>
-    <div id="TruckContainer">
-        
-    </div>
+    <nav>
+        <ul>
+            <li id="AddTruckButton">Vrachtwagen toevoegen</li>
+            <li id="AddAssemblylineButton">Lopende band toevoegen</li>
+            <li id="AssmblylineSettingsButton">Lopende band instellen</li>
+            <li id="ChangeLocationButton">Locatie veranderen</li>
+            <li id="ChangeHallButton">Hal veranderen</li>
+        </ul>
+    </nav>
+    <section id="Container" >
+        <section id="FormContainer">
+            <div class="Form" id="TruckForm">
+                <label>Lengte</label>
+                <input class="NumberInput" type="number" id="length">
+                <label>Breedte</label>
+                <input class="NumberInput" type="number" id="width">
+                <label>Type transport</label>
+                <select name="transportSelect" id="transportSelect">
+                    <option value="ColdTransport">Cold tranport</option>
+                    <option value="FragileTransport">Fragile transport</option>
+                    <option value="GeneralTransport">General transport</option>
+                    <option value="Pallets">Pallets</option>
+                    <option value="FastTransport">Fast transport</option>
+                </select>
+                <label>Interval</label>
+                <input class="NumberInput" type="number" id="interval">
+                <button>versturen</button>
+            </div>
+            <div class="FlexColumn" id="AssemblyForm">
+                <label>Pakketjes per seconde</label>
+                <input class="NumberInput" type="number" id="speed">
+                <button>versturen</button>
+            </div>
+            <div class="FlexColumn" id="LocationForm">
+                <label>Postcode</label>
+                <input class="NumberInput" type="text" id="postalCode">
+                <button>versturen</button>
+            </div>
+            
+        </section>
+        <section id="HallContainer">
+            <div class="AssemblyLine">
+                test
+            </div>
+        </section>
+    </section>
 </body>
+
 </html>

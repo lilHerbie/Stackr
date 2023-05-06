@@ -1,3 +1,25 @@
+//navigation
+let addTruckButton = document.getElementById('AddTruckButton')
+
+let formContainer = document.getElementById('FormContainer')
+
+let truckForm = document.getElementById('TruckForm')
+
+function showForm(){
+    formContainer.style.display = formContainer.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function AddTruckForm(){
+    showForm();
+    truckForm.style.display = 'flex';
+    
+}
+
+addTruckButton.addEventListener('click', AddTruckForm)
+
+
+
+
 class Truck{
     constructor(transportType, length, width, interval){
         this.transportType = transportType;
