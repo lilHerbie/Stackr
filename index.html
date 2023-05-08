@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <script src="script.js" defer></script>
 <script src="script1.js" defer></script>
 
@@ -40,14 +39,14 @@
                 </select>
                 <label>Interval</label>
                 <input class="NumberInput" type="number" id="interval">
-                <button>versturen</button>
+                <button id="SubmitTruck">versturen</button>
             </div>
-            <div class="FlexColumn" id="AssemblyForm">
+            <div class="Form" id="AssemblyForm">
                 <label>Pakketjes per seconde</label>
                 <input class="NumberInput" type="number" id="speed">
                 <button>versturen</button>
             </div>
-            <div class="FlexColumn" id="LocationForm">
+            <div class="Form" id="LocationForm">
                 <label>Postcode</label>
                 <input class="NumberInput" type="text" id="postalCode">
                 <button>versturen</button>
@@ -55,8 +54,38 @@
             
         </section>
         <section id="HallContainer">
-            <div class="AssemblyLine">
-                test
+            <div class="AssemblyLineContainer">
+                <div class="AssemblyLine">
+                    <p>lopende band</p>
+                </div>
+                <div class="Crane">
+                    <p>crane</p>
+                </div>
+                <div class="Truck">
+                    <img src="Assets/truck.png">
+                </div>
+            </div>
+            <div class="AssemblyLineContainer">
+                <div class="AssemblyLine">
+                    <p>lopende band</p>
+                </div>
+                <div class="Crane">
+                    <p>crane</p>
+                </div>
+                <div class="Truck">
+                    <img src="Assets/truck.png">
+                </div>
+            </div>
+            <div class="AssemblyLineContainer">
+                <div class="AssemblyLine">
+                    <p>lopende band</p>
+                </div>
+                <div class="Crane">
+                    <p>crane</p>
+                </div>
+                <div class="Truck">
+                    <img src="Assets/truck.png">
+                </div>
             </div>
         </section>
     </section>

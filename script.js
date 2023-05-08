@@ -1,24 +1,56 @@
 //navigation
-let addTruckButton = document.getElementById('AddTruckButton')
 
+//nav buttons
+let addTruckButton = document.getElementById('AddTruckButton');
+let addAssemblylineButton = document.getElementById('AddAssemblylineButton');
+let assmblylineSettingsButton = document.getElementById('AssmblylineSettingsButton');
+let changeLocationButton = document.getElementById('ChangeLocationButton');
+let changeHallButton = document.getElementById('ChangeHallButton');
+
+//containers
 let formContainer = document.getElementById('FormContainer')
+let hallContainer = document.getElementById("HallContainer")
 
+//forms
 let truckForm = document.getElementById('TruckForm')
+let assemblyForm = document.getElementById('AssemblyForm')
+let locationForm = document.getElementById('LocationForm')
 
-function showForm(){
+//functions
+
+function showForm(form){
     formContainer.style.display = formContainer.style.display === 'flex' ? 'none' : 'flex';
+    truckForm.style.display = 'none';
+    assemblyForm.style.display = 'none';
+    locationForm.style.display = 'none';
+    form.style.display = 'flex';
 }
 
-function AddTruckForm(){
-    showForm();
-    truckForm.style.display = 'flex';
-    
+
+function addAssemblyLine(){
+    //TODO build functionality
 }
 
-addTruckButton.addEventListener('click', AddTruckForm)
 
+//eventlisteners
 
+addTruckButton.addEventListener('click', function() {
+    showForm(truckForm);
+});
 
+assmblylineSettingsButton.addEventListener('click', function() {
+    showForm(assemblyForm);
+});
+
+changeLocationButton.addEventListener('click', function() {
+    showForm(locationForm);
+});
+
+//forms
+
+let truckFormButton = document.getElementById('SubmitTruck');
+
+let Trucks = [];
 
 class Truck{
     constructor(transportType, length, width, interval){
@@ -29,8 +61,6 @@ class Truck{
     }
 }
 
-let Trucks = [];
-
 const TransportTypes = {
     ColdTransport : "Cold tranport",
     FragileTransport : "Fragile transport",
@@ -39,38 +69,9 @@ const TransportTypes = {
     FastTransport : "Fast transport"
 }
 
-let truckFormButton = document.querySelector('button');
+function submitForm(){
+    //TODO add form functionality
+    truckFormButton.innerHTML = "verstuurd";
+}
 
 truckFormButton.addEventListener('click', submitForm);
-
-
-function submitForm(){
-    let length = document.getElementById('length');
-    let width = document.getElementById('width');
-    let transportType = document.getElementById('transportSelect');
-    let interval = document.getElementById('interval');
-    let truck = new Truck(transportType, length, width, interval)
-
-    Trucks.push(truck);
-    addTruck(truck);
-
-    truckFormButton.innerHTML = "verstuurd";
-
-}
-
-let truckContainer = document.getElementById('TruckContainer');
-
-function addTruck(truck){
-    let truckElement = document.createElement("div");
-    truckElement.className = "Truck";
-    truckElement.width = truck.width;
-    truckElement.length = truck.length;
-    let img = document.createElement('img');
-    img.src = 'Assets/truck.png';
-    img.width = truck.width;
-    img.length = truck.length;
-
-    truckElement.appendChild(img);
-    truckContainer.appendChild(truckElement);
-}
-
