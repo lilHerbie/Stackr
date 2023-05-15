@@ -18,7 +18,13 @@ let locationForm = document.getElementById('LocationForm')
 
 //costum elements
 
-
+const TransportTypes = {
+    ColdTransport: "Cold tranport",
+    FragileTransport: "Fragile transport",
+    GeneralTransport: "General transport",
+    Pallets: "Pallets",
+    FastTransport: "Fast transport"
+}
 
 class Truck extends HTMLElement{
     constructor(transportType, length, width, interval) {
@@ -28,7 +34,6 @@ class Truck extends HTMLElement{
         this.width = width;
         this.interval = interval;
     }
-
     connectedCallback() {
         this.innerHTML = 
         `<div class="Truck">
@@ -36,6 +41,26 @@ class Truck extends HTMLElement{
         </div>`
     }
 }
+
+class Package extends HTMLElement {
+
+    constructor(length, width, color){
+        this.space = new Array(length).fill().map(() => new Array(width).fill("plaats"));
+        this.color = color;
+    }
+
+    connectedCallback(){
+
+    }
+
+}
+
+function getRandomColor() {
+    const colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray"];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  }
+  
 
 class AssemblyLine extends HTMLElement {
     constructor() {
@@ -46,7 +71,8 @@ class AssemblyLine extends HTMLElement {
         this.innerHTML =
         `<div class="AssemblyLineContainer">
             <div class="AssemblyLine">
-                <p>lopende band</p>
+                <p>pakketjes</p>
+                <img src="Assets/AssemblyLine.png" >
             </div>
             <div class="TruckContainer">
 
@@ -93,16 +119,6 @@ changeLocationButton.addEventListener('click', function () {
 let truckFormButton = document.getElementById('SubmitTruck');
 
 let Trucks = [];
-
-
-
-const TransportTypes = {
-    ColdTransport: "Cold tranport",
-    FragileTransport: "Fragile transport",
-    GeneralTransport: "General transport",
-    Pallets: "Pallets",
-    FastTransport: "Fast transport"
-}
 
 function submitForm() {
     //TODO add form functionality
