@@ -18,7 +18,13 @@ let locationForm = document.getElementById('LocationForm')
 
 //costum elements
 
-
+const TransportTypes = {
+    ColdTransport: "Cold tranport",
+    FragileTransport: "Fragile transport",
+    GeneralTransport: "General transport",
+    Pallets: "Pallets",
+    FastTransport: "Fast transport"
+}
 
 class Truck extends HTMLElement{
     constructor(transportType, length, width, interval) {
@@ -27,15 +33,60 @@ class Truck extends HTMLElement{
         this.length = length;
         this.width = width;
         this.interval = interval;
+        this.space = new Array(length).fill().map(() => new Array(width).fill("plaats")); //plaats en bezet|| false en true
     }
-
     connectedCallback() {
         this.innerHTML = 
         `<div class="Truck">
             <img src="Assets/truck.png">
         </div>`
     }
+    show() {
+        console.table(this.space);
+    }
+
+    place(posx, posy, arr){
+        if (posx > this.length || posx < 0 || posy > this.width || posy < 0){
+            return false;
+        }
+
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 0; j < arr[0].length; j++) {
+                if (this.space[posx + i][posy + j] === "bezet" && arr[i][j] === "bezet")
+                {
+                    return false;
+                }
+            }
+        }
+        
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 0; j < arr[0].length; j++) {
+                this.space[posx + i][posy + j] = arr[i][j];
+            }
+        }
+
+    }
 }
+
+class Package extends HTMLElement {
+
+    constructor(length, width, color){
+        this.space = new Array(length).fill().map(() => new Array(width).fill("plaats"));
+        this.color = color;
+    }
+
+    connectedCallback(){
+
+    }
+
+}
+
+function getRandomColor() {
+    const colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray"];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  }
+  
 
 class AssemblyLine extends HTMLElement {
     constructor() {
@@ -46,7 +97,8 @@ class AssemblyLine extends HTMLElement {
         this.innerHTML =
         `<div class="AssemblyLineContainer">
             <div class="AssemblyLine">
-                <p>lopende band</p>
+                <p>pakketjes</p>
+                <img src="Assets/AssemblyLine.png" >
             </div>
             <div class="TruckContainer">
 
@@ -94,50 +146,6 @@ let truckFormButton = document.getElementById('SubmitTruck');
 
 let Trucks = [];
 
-
-class Truck{
-    constructor(transportType, length, width, interval){
-        this.transportType = transportType;
-        this.length = length;
-        this.width = width;
-        this.interval = interval;
-        this.space = new Array(length).fill().map(() => new Array(width).fill("plaats")); //plaats en bezet|| false en true
-    }
-
-    show() {
-        console.table(this.space);
-    }
-
-    place(posx, posy, arr){
-        if (posx > this.length || posx < 0 || posy > this.width || posy < 0){
-            return false;
-        }
-
-        for (let i = 0; i < arr.length; i++) {
-            for (let j = 0; j < arr[0].length; j++) {
-                if (this.space[posx + i][posy + j] === "bezet" && arr[i][j] === "bezet")
-                {
-                    return false;
-                }
-            }
-        }
-        
-        for (let i = 0; i < arr.length; i++) {
-            for (let j = 0; j < arr[0].length; j++) {
-                this.space[posx + i][posy + j] = arr[i][j];
-            }
-        }
-
-    }
-} 
-
-const TransportTypes = {
-    ColdTransport: "Cold tranport",
-    FragileTransport: "Fragile transport",
-    GeneralTransport: "General transport",
-    Pallets: "Pallets",
-    FastTransport: "Fast transport"
-}
 
 function submitForm() {
     //TODO add form functionality
