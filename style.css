@@ -1,11 +1,22 @@
-/* general */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .cell {
+    background-color: #ccc;
+    padding: 10px;
+  }
+
 *{
     font-family: monospace;
     font-size: large;
 }
 
 body {
-    background-color: black;
+    /* background-color: black; */
     flex-direction: column;
     display: flex;
     align-items: center;
