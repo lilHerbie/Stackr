@@ -148,7 +148,12 @@ nav li:hover{
     grid-template-rows: 25% 25% 25% 25%;
     width: 100px;
     height: 100px;
+    animation-name: moveToRight;
+    animation-duration: 5s;
+
+
 }
+
 
 
 

@@ -197,6 +197,23 @@ customElements.define("assembly-line", AssemblyLine);
 function AddPackageToAssemblyLine(){
     let assemblyline = document.getElementsByClassName('AssemblyLine')[0];
     let package = new Package(getRandomShape(), getRandomColor(), getRandomRotation());
+
+    //hier maak in de animatie aan, misschien kan dat beter op een andere plek
+    package.animate(
+        [
+          // keyframes
+          { transform: `translateX(0px)` },
+          { transform: `translateX(${assemblyline.clientWidth}px)` },
+        ],
+        {
+          // timing options
+          duration: 5000,
+          iterations: 1,
+          fill: "forwards"
+        }
+      );
+
+
     assemblyline.appendChild(package);
     
 }
