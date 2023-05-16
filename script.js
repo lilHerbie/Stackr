@@ -147,7 +147,7 @@ class Package extends HTMLElement {
             }
         }
 
-        //TODO fix rotation
+        //TODO
         gridContainer.rotation = this.rotation;
 
         this.appendChild(gridContainer);
@@ -194,8 +194,8 @@ customElements.define("assembly-line", AssemblyLine);
 
 //functions
 
-function AddRandomPackageToAssemblyLine(id){
-    let assemblyline = document.getElementsByClassName('AssemblyLine')[id];
+function AddPackageToAssemblyLine(){
+    let assemblyline = document.getElementsByClassName('AssemblyLine')[0];
     let package = new Package(getRandomShape(), getRandomColor(), getRandomRotation());
     assemblyline.appendChild(package);
     
