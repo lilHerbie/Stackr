@@ -76,7 +76,25 @@ class Package extends HTMLElement {
     }
 
     connectedCallback(){
-
+        this.innerHTML = `
+        <div class="package">
+            <div class="field">1</div>
+            <div class="field">2</div>
+            <div class="field">3</div>
+            <div class="field">4</div>
+            <div class="field">5</div>
+            <div class="field">6</div>
+            <div class="field">7</div>
+            <div class="field">8</div>
+            <div class="field">9</div>
+            <div class="field">10</div>
+            <div class="field">11</div>
+            <div class="field">12</div>
+            <div class="field">13</div>
+            <div class="field">14</div>
+            <div class="field">15</div>
+            <div class="field">16</div>
+        </div>`
     }
 
 }

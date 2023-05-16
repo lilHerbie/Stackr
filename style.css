@@ -140,6 +140,13 @@ nav li:hover{
 
 }
 
+/* package */
+
+.package{
+    display: grid;
+}
+
+
 
 /* forms */
 
