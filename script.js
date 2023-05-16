@@ -214,6 +214,7 @@ function AddRandomPackageToAssemblyLine(id){
         }
       );
 
+      //TODO, this does not work
       package.addEventListener('animationend', ()=>{package.remove()}); 
 
 
