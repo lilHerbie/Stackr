@@ -68,45 +68,108 @@ class Truck extends HTMLElement{
     }
 }
 
+const tetrominoShapes = [
+
+    [
+        [0, 0, 0, 0],  
+        [0, 0, 0, 0],  
+        [0, 0, 0, 0],  
+        [1, 1, 1, 1]
+    ],
+    [
+        [0, 0, 0, 0],  
+        [0, 0, 0, 0],  
+        [1, 0, 0, 0],
+        [1, 1, 1, 0]
+    ],
+    [
+        [0, 0, 0, 0],  
+        [0, 0, 0, 0],  
+        [0, 0, 1, 0],
+        [1, 1, 1, 0]
+    ],
+    [
+        [0, 0, 0, 0],  
+        [0, 0, 0, 0],  
+        [1, 1, 0, 0],
+        [1, 1, 0, 0]
+    ],
+    [
+        [0, 0, 0, 0],  
+        [0, 0, 0, 0],  
+        [0, 1, 1, 0],
+        [1, 1, 0, 0]
+    ],
+    [
+        [0, 0, 0, 0],  
+        [0, 0, 0, 0],  
+        [0, 1, 0, 0],
+        [1, 1, 1, 0]
+    ],
+    [
+        [0, 0, 0, 0],  
+        [0, 0, 0, 0],  
+        [1, 1, 0, 0],
+        [0, 1, 1, 0]
+    ]
+  ];
+
+  const colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray"];
+
 class Package extends HTMLElement {
 
-    constructor(){
+    constructor(shape, color, rotation) {
         super();
-        this.space = new Array(length).fill().map(() => new Array(width).fill(false));
-        this.color = getRandomColor();
-    }
+        this.shape = shape;
+        this.color = color;
+        this.rotation = rotation;
+      }
+    
+      connectedCallback() {
+        this.render();
+      }
 
-    connectedCallback(){
-        this.innerHTML = `
-        <div class="packageContainer">
-            <div class="field">1</div>
-            <div class="field">2</div>
-            <div class="field">3</div>
-            <div class="field">4</div>
-            <div class="field">5</div>
-            <div class="field">6</div>
-            <div class="field">7</div>
-            <div class="field">8</div>
-            <div class="field">9</div>
-            <div class="field">10</div>
-            <div class="field">11</div>
-            <div class="field">12</div>
-            <div class="field">13</div>
-            <div class="field">14</div>
-            <div class="field">15</div>
-            <div class="field">16</div>
-        </div>
-        `
-    }
+      render() {
+        let gridContainer = document.createElement('div');
+        gridContainer.className = 'packageContainer';
+
+        for (var i = 0; i < this.shape.length; i++) {
+            for (var j = 0; j < this.shape[i].length; j++) {
+                if(this.shape[i][j] === 1){
+                    let gridElement = document.createElement('span');
+                    gridElement.style.gridRowStart = i;
+                    gridElement.style.gridRowEnd = i;
+                    gridElement.style.gridColumnStart = j
+                    gridElement.style.gridColumnEnd = j
+                    gridElement.style.backgroundColor = this.color;
+                    gridContainer.appendChild(gridElement);
+                }
+            }
+        }
+
+        //TODO fix rotation
+        gridContainer.rotation = this.rotation;
+
+        this.appendChild(gridContainer);
+      }
 
 }
 customElements.define("package-element", Package);
 
 function getRandomColor() {
-    const colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray"];
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
   }
+
+function getRandomShape(){
+    const randomIndex = Math.floor(Math.random() * tetrominoShapes.length);
+    return tetrominoShapes[randomIndex];
+}
+
+function getRandomRotation(){
+    const randomIndex = Math.floor(Math.random()) * 3;
+    return randomIndex * 90;
+}
   
 
 class AssemblyLine extends HTMLElement {
@@ -131,9 +194,9 @@ customElements.define("assembly-line", AssemblyLine);
 
 //functions
 
-function AddPackageToAssemblyLine(){
-    let assemblyline = document.getElementsByClassName('AssemblyLine')[0];
-    let package = new Package();
+function AddRandomPackageToAssemblyLine(id){
+    let assemblyline = document.getElementsByClassName('AssemblyLine')[id];
+    let package = new Package(getRandomShape(), getRandomColor(), getRandomRotation());
     assemblyline.appendChild(package);
     
 }
