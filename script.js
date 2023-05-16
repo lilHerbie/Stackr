@@ -194,8 +194,8 @@ customElements.define("assembly-line", AssemblyLine);
 
 //functions
 
-function AddPackageToAssemblyLine(){
-    let assemblyline = document.getElementsByClassName('AssemblyLine')[0];
+function AddRandomPackageToAssemblyLine(id){
+    let assemblyline = document.getElementsByClassName('AssemblyLine')[id];
     let package = new Package(getRandomShape(), getRandomColor(), getRandomRotation());
 
     //hier maak in de animatie aan, misschien kan dat beter op een andere plek
@@ -210,8 +210,11 @@ function AddPackageToAssemblyLine(){
           duration: 5000,
           iterations: 1,
           fill: "forwards"
+        
         }
       );
+
+      package.addEventListener('animationend', ()=>{package.remove()}); 
 
 
     assemblyline.appendChild(package);
@@ -261,5 +264,15 @@ function submitForm() {
 
 truckFormButton.addEventListener('click', submitForm);
 
-//TODO remove
-AddPackageToAssemblyLine();
+
+window.setInterval(() => {
+    let hall = document.getElementById('HallContainer');
+    let id = 0;
+    Array.from(hall.children).forEach(element => {
+        AddRandomPackageToAssemblyLine(id);
+        id++;
+    });
+}, 6000);
+
+
+   
