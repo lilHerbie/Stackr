@@ -70,14 +70,15 @@ class Truck extends HTMLElement{
 
 class Package extends HTMLElement {
 
-    constructor(length, width, color){
-        this.space = new Array(length).fill().map(() => new Array(width).fill("plaats"));
-        this.color = color;
+    constructor(){
+        super();
+        this.space = new Array(length).fill().map(() => new Array(width).fill(false));
+        this.color = getRandomColor();
     }
 
     connectedCallback(){
         this.innerHTML = `
-        <div class="package">
+        <div class="packageContainer">
             <div class="field">1</div>
             <div class="field">2</div>
             <div class="field">3</div>
@@ -94,10 +95,12 @@ class Package extends HTMLElement {
             <div class="field">14</div>
             <div class="field">15</div>
             <div class="field">16</div>
-        </div>`
+        </div>
+        `
     }
 
 }
+customElements.define("package-element", Package);
 
 function getRandomColor() {
     const colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray"];
@@ -115,19 +118,25 @@ class AssemblyLine extends HTMLElement {
         this.innerHTML =
         `<div class="AssemblyLineContainer">
             <div class="AssemblyLine">
-                <p>pakketjes</p>
                 <img src="Assets/AssemblyLine.png" >
             </div>
             <div class="TruckContainer">
 
             </div>
-        </div>`
+        </div>`;
     }
 }
 
 customElements.define("assembly-line", AssemblyLine);
 
 //functions
+
+function AddPackageToAssemblyLine(){
+    let assemblyline = document.getElementsByClassName('AssemblyLine')[0];
+    let package = new Package();
+    assemblyline.appendChild(package);
+    
+}
 
 function showForm(form) {
     formContainer.style.display = formContainer.style.display === 'flex' ? 'none' : 'flex';
@@ -171,3 +180,6 @@ function submitForm() {
 }
 
 truckFormButton.addEventListener('click', submitForm);
+
+//TODO remove
+AddPackageToAssemblyLine();

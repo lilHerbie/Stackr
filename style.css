@@ -120,7 +120,7 @@ nav li:hover{
 
 .AssemblyLine{
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     flex-grow: 1;
     flex-basis: 50%;
     justify-content: center;
@@ -142,8 +142,12 @@ nav li:hover{
 
 /* package */
 
-.package{
+.packageContainer{
     display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 25% 25% 25% 25%;
+    width: 100px;
+    height: 100px;
 }
 
 
