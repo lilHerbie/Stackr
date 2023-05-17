@@ -68,6 +68,9 @@ class Truck extends HTMLElement{
     }
 }
 
+customElements.define("truck-element", Truck);
+
+
 const tetrominoShapes = [
 
     [
@@ -151,6 +154,7 @@ class Package extends HTMLElement {
         gridContainer.rotation = this.rotation;
 
         this.appendChild(gridContainer);
+        this.draggable = true;
       }
 
 }
