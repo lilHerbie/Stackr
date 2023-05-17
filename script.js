@@ -130,8 +130,8 @@ class Package extends HTMLElement {
       }
 
       render() {
-        let gridContainer = document.createElement('div');
-        gridContainer.className = 'package';
+        // let gridContainer = document.createElement('div');
+        // gridContainer.className = 'package';
 
         for (var i = 0; i < this.shape.length; i++) {
             for (var j = 0; j < this.shape[i].length; j++) {
@@ -142,15 +142,15 @@ class Package extends HTMLElement {
                     gridElement.style.gridColumnStart = j;
                     gridElement.style.gridColumnEnd = j;
                     gridElement.style.backgroundColor = this.color;
-                    gridContainer.appendChild(gridElement);
+                    this.appendChild(gridElement);
                 }
             }
         }
 
         //TODO
-        gridContainer.rotation = this.rotation;
+        // gridContainer.rotation = this.rotation;
 
-        this.appendChild(gridContainer);
+        // this.innerHTML = gridContainer;
       }
 
 }
@@ -199,22 +199,24 @@ function AddRandomPackageToAssemblyLine(id){
     let packageContainer = assemblyline.children[1];
     let package = new Package(getRandomShape(), getRandomColor(), getRandomRotation());
 
+    package.style.left = '0';
+
     //TODO hier maak in de animatie aan, misschien kan dat beter op een andere plek
-    let animation = package.animate(
+    const animation = package.animate(
         [
           // keyframes
           { transform: `translateX(0px)` },
-          { transform: `translateX(${assemblyline.clientWidth}px)` },
+          { transform: `translateX(${assemblyline.clientWidth - 60}px)` },
         ],
         {
           // timing options
-          duration: 5000,
+          duration: 30000,
           iterations: 1,
           fill: "forwards"
         
         }
       );
-
+    
     animation.addEventListener('finish', ()=>{package.remove()}); 
 
     packageContainer.appendChild(package);
@@ -277,5 +279,5 @@ function executeCodeBlock() {
 
 executeCodeBlock(); // Execute the code block immediately
 
-window.setInterval(executeCodeBlock, 7000); // Execute the code block every 7 seconds
+window.setInterval(executeCodeBlock, 10000); // Execute the code block every 10 seconds
 
