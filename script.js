@@ -36,11 +36,39 @@ class Truck extends HTMLElement{
         this.space = new Array(length).fill().map(() => new Array(width).fill("plaats")); //plaats en bezet|| false en true
     }
     connectedCallback() {
-        this.innerHTML = 
-        `<div class="Truck">
-            <img src="Assets/truck.png">
-        </div>`
+        this.render();
     }
+    
+    render() {
+        this.style.gridTemplateColumns = `repeat(${this.width}, 1fr);`
+        this.style.gridTemplateRows = `repeat(${this.length}, 1fr);`
+        this.className = 'truckDiv';
+
+        let truckGrid = document.createElement('div');
+        truckGrid.className = 'truckGrid';
+
+        //TODO temp
+        for (let i = 0; i < this.space.length; i++) {
+            for (let j = 0; j < this.space[i].length; j++) {
+              (this.space[i][j]);
+              let gridElement = document.createElement('span');
+              gridElement.style.gridRowStart =  i + 1;
+              gridElement.style.gridRowEnd =  i + 1;
+              gridElement.style.gridColumnStart = j + 1;
+              gridElement.style.gridColumnEnd = j + 1;
+              gridElement.style.backgroundColor = this.color;
+              truckGrid.appendChild(gridElement);
+              // Perform your desired operations with each element here
+            }
+          }
+          
+
+       
+
+
+        this.appendChild(truckGrid);
+    }
+
     show() {
         console.table(this.space);
     }
@@ -139,8 +167,8 @@ class Package extends HTMLElement {
                     let gridElement = document.createElement('span');
                     gridElement.style.gridRowStart = i + 1;
                     gridElement.style.gridRowEnd = i + 1;
-                    gridElement.style.gridColumnStart = j;
-                    gridElement.style.gridColumnEnd = j;
+                    gridElement.style.gridColumnStart = j + 1;
+                    gridElement.style.gridColumnEnd = j + 1;
                     gridElement.style.backgroundColor = this.color;
                     this.appendChild(gridElement);
                 }
@@ -157,7 +185,7 @@ customElements.define("package-element", Package);
 function getRandomColor() {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
-  }
+}
 
 function getRandomShape(){
     const randomIndex = Math.floor(Math.random() * tetrominoShapes.length);
@@ -234,6 +262,12 @@ function addAssemblyLine() {
     hallContainer.appendChild(assemblyline);
 }
 
+function addTruckToAssemblyLine(){
+    let truckContainer = document.getElementsByClassName('TruckContainer')[0];
+    let truck = new Truck(5, 5, 10);
+    truckContainer.appendChild(truck);
+}
+
 //eventlisteners
 
 addTruckButton.addEventListener('click', function () {
@@ -279,3 +313,4 @@ executeCodeBlock(); // Execute the code block immediately
 
 window.setInterval(executeCodeBlock, 10000); // Execute the code block every 10 seconds
 
+addTruckToAssemblyLine();

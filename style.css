@@ -115,14 +115,6 @@ assembly-line{
     padding: 0;
 }
 
-.TruckContainer{
-    display: flex;
-    flex-grow: 1;
-    flex-basis: 50%;
-    justify-content: center;
-    align-items: center;
-}
-
 /* package */
 
 package-element{
@@ -173,4 +165,33 @@ package-element{
 
 #LocationForm{
     display: none;
+}
+
+/* truck */
+
+.TruckContainer{
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+truck-element{
+    background-image: url("Assets/truck.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+
+.truckGrid{
+    display: inline-grid;
+    position: relative;
+    bottom: -9.25%;
+    width: 56.25%;
+    height: 46.88%;
+    background-color: blue;
 }
