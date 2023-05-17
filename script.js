@@ -68,6 +68,9 @@ class Truck extends HTMLElement{
     }
 }
 
+customElements.define("truck-element", Truck);
+
+
 const tetrominoShapes = [
 
     [
@@ -130,9 +133,6 @@ class Package extends HTMLElement {
       }
 
       render() {
-        // let gridContainer = document.createElement('div');
-        // gridContainer.className = 'package';
-
         for (var i = 0; i < this.shape.length; i++) {
             for (var j = 0; j < this.shape[i].length; j++) {
                 if(this.shape[i][j] === 1){
@@ -146,11 +146,9 @@ class Package extends HTMLElement {
                 }
             }
         }
-
         //TODO
         // gridContainer.rotation = this.rotation;
-
-        // this.innerHTML = gridContainer;
+        this.draggable = true;
       }
 
 }
