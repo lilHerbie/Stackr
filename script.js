@@ -131,16 +131,16 @@ class Package extends HTMLElement {
 
       render() {
         let gridContainer = document.createElement('div');
-        gridContainer.className = 'packageContainer';
+        gridContainer.className = 'package';
 
         for (var i = 0; i < this.shape.length; i++) {
             for (var j = 0; j < this.shape[i].length; j++) {
                 if(this.shape[i][j] === 1){
                     let gridElement = document.createElement('span');
-                    gridElement.style.gridRowStart = i;
-                    gridElement.style.gridRowEnd = i;
-                    gridElement.style.gridColumnStart = j
-                    gridElement.style.gridColumnEnd = j
+                    gridElement.style.gridRowStart = i + 1;
+                    gridElement.style.gridRowEnd = i + 1;
+                    gridElement.style.gridColumnStart = j;
+                    gridElement.style.gridColumnEnd = j;
                     gridElement.style.backgroundColor = this.color;
                     gridContainer.appendChild(gridElement);
                 }
@@ -167,7 +167,7 @@ function getRandomShape(){
 }
 
 function getRandomRotation(){
-    const randomIndex = Math.floor(Math.random()) * 3;
+    const randomIndex = Math.floor(Math.random()) * 4;
     return randomIndex * 90;
 }
   
@@ -179,14 +179,14 @@ class AssemblyLine extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML =
-        `<div class="AssemblyLineContainer">
-            <div class="AssemblyLine">
-                <img src="Assets/AssemblyLine.png" >
+        `   <div class="AssemblyLine">
+                <img class="assemblyImg" src="Assets/AssemblyLine.png" >
+                <div class="packageContainer"></div>
             </div>
             <div class="TruckContainer">
 
             </div>
-        </div>`;
+        `;
     }
 }
 
@@ -196,10 +196,11 @@ customElements.define("assembly-line", AssemblyLine);
 
 function AddRandomPackageToAssemblyLine(id){
     let assemblyline = document.getElementsByClassName('AssemblyLine')[id];
+    let packageContainer = assemblyline.children[1];
     let package = new Package(getRandomShape(), getRandomColor(), getRandomRotation());
 
-    //hier maak in de animatie aan, misschien kan dat beter op een andere plek
-    package.animate(
+    //TODO hier maak in de animatie aan, misschien kan dat beter op een andere plek
+    let animation = package.animate(
         [
           // keyframes
           { transform: `translateX(0px)` },
@@ -214,11 +215,9 @@ function AddRandomPackageToAssemblyLine(id){
         }
       );
 
-      //TODO, this does not work
-      package.addEventListener('animationend', ()=>{package.remove()}); 
+    animation.addEventListener('finish', ()=>{package.remove()}); 
 
-
-    assemblyline.appendChild(package);
+    packageContainer.appendChild(package);
     
 }
 
@@ -266,14 +265,17 @@ function submitForm() {
 truckFormButton.addEventListener('click', submitForm);
 
 
-window.setInterval(() => {
+
+function executeCodeBlock() {
     let hall = document.getElementById('HallContainer');
     let id = 0;
     Array.from(hall.children).forEach(element => {
         AddRandomPackageToAssemblyLine(id);
         id++;
     });
-}, 6000);
+}
 
+executeCodeBlock(); // Execute the code block immediately
 
-   
+window.setInterval(executeCodeBlock, 7000); // Execute the code block every 7 seconds
+
