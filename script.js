@@ -47,7 +47,6 @@ class Truck extends HTMLElement {
         let truckGrid = document.createElement('div');
         truckGrid.className = 'truckGrid';
 
-        //TODO temp
         for (let i = 0; i < this.space.length; i++) {
             for (let j = 0; j < this.space[i].length; j++) {
                 let gridElement = document.createElement('span');
@@ -61,13 +60,12 @@ class Truck extends HTMLElement {
             }
         }
 
-        this.ondrop = drop;
-        this.ondragover = allowDrop;
         this.className = 'truckDiv';
-        //   this.style.width = `${this.width * 55.56}px`;
-        // this.style.height = `${this.height * 155.56}px`;
         this.style.height = '250px';
         this.style.width = '250px';
+
+        truckGrid.ondrop = drop;
+        truckGrid.ondragover = allowDrop;
 
         this.appendChild(truckGrid);
     }
@@ -77,24 +75,22 @@ class Truck extends HTMLElement {
     }
 
     place(posx, posy, arr, color) {
-        console.log(posx, posy, arr);
-
         for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < arr[0].length; j++) {
-                if ((posx + i < 0 || posx + j < 0 || posx + i > this.space.length || posx + j > this.space.length) && arr[i][j] === 1) {
+                if ((posx + i < 0 || posy + j < 0 || posx + i >= this.space.length || posy + j >= this.space.length) && arr[i][j] === 1) {
                     return false;
-                }
-                if (this.space[posx + i][posy + j] === 1 && arr[i][j] === 1) {
+                } else if ((posx + i >= 0 && posy + j >= 0 && posx + i < this.space.length && posy + j < this.space.length) && this.space[posx + i][posy + j] === 1 && arr[i][j] === 1) {
                     return false;
                 }
             }
         }
+
         for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < arr[0].length; j++) {
                 if (arr[i][j] == 1) {
-                    document.getElementById('truck:' + (posy + j) + ':' + (posx + i)).style.backgroundColor = 'blue';
+                    document.getElementById('truck:' + (posy + j) + ':' + (posx + i)).style.backgroundColor = color;
+                    this.space[posx + i][posy + j] = arr[i][j];
                 }
-                this.space[posx + i][posy + j] = arr[i][j];
             }
         }
         return true;
@@ -200,10 +196,16 @@ function allowDrop(event) {
 }
 
 function drag(event) {
+    if (elementdragged == null) {
+        event.preventDefault();
+    }
     event.dataTransfer.setData("text", event.target.id);
 }
 
 function drop(event) {
+    if (elementdragged == null) {
+        return;
+    }
     event.preventDefault();
 
     let elementpos = elementdragged.id.split(":");
@@ -211,11 +213,11 @@ function drop(event) {
 
     let coordinatex = targetpos[2] - elementpos[1];
     let coordinatey = targetpos[1] - elementpos[0];
-    console.log(targetpos);
-    console.log(elementpos);
-    console.log(coordinatex, coordinatey);
     let truck = event.target.parentNode.parentNode;
-    console.log(truck.place(coordinatex, coordinatey, elementdragged.parentNode.shape));
+    if (truck.place(coordinatex, coordinatey, elementdragged.parentNode.shape, elementdragged.parentNode.color)) {
+        elementdragged.parentNode.remove();
+        elementdragged = null;
+    }
 }
 
 customElements.define("package-element", Package);
