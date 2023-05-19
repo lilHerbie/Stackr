@@ -42,7 +42,7 @@ class Truck extends HTMLElement{
     render() {
         this.style.gridTemplateColumns = `repeat(${this.width}, 1fr);`
         this.style.gridTemplateRows = `repeat(${this.length}, 1fr);`
-        this.className = 'truckDiv';
+        
 
         let truckGrid = document.createElement('div');
         truckGrid.className = 'truckGrid';
@@ -50,21 +50,22 @@ class Truck extends HTMLElement{
         //TODO temp
         for (let i = 0; i < this.space.length; i++) {
             for (let j = 0; j < this.space[i].length; j++) {
-              (this.space[i][j]);
               let gridElement = document.createElement('span');
               gridElement.style.gridRowStart =  i + 1;
               gridElement.style.gridRowEnd =  i + 1;
               gridElement.style.gridColumnStart = j + 1;
               gridElement.style.gridColumnEnd = j + 1;
-              gridElement.style.backgroundColor = this.color;
+              gridElement.style.border = 'black solid 1px';
               truckGrid.appendChild(gridElement);
-              // Perform your desired operations with each element here
             }
           }
           
 
-       
-
+          this.className = 'truckDiv';
+        //   this.style.width = `${this.width * 55.56}px`;
+        // this.style.height = `${this.height * 155.56}px`;
+        this.style.height = '250px';
+        this.style.width = '250px';
 
         this.appendChild(truckGrid);
     }
@@ -244,9 +245,7 @@ function AddRandomPackageToAssemblyLine(id){
       );
     
     animation.addEventListener('finish', ()=>{package.remove()}); 
-
     packageContainer.appendChild(package);
-    
 }
 
 function showForm(form) {
@@ -264,7 +263,7 @@ function addAssemblyLine() {
 
 function addTruckToAssemblyLine(){
     let truckContainer = document.getElementsByClassName('TruckContainer')[0];
-    let truck = new Truck(5, 5, 10);
+    let truck = new Truck(TransportTypes.ColdTransport, 5, 5, 10);
     truckContainer.appendChild(truck);
 }
 
@@ -297,8 +296,6 @@ function submitForm() {
 }
 
 truckFormButton.addEventListener('click', submitForm);
-
-
 
 function executeCodeBlock() {
     let hall = document.getElementById('HallContainer');
