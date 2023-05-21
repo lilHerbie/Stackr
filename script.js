@@ -12,9 +12,13 @@ let formContainer = document.getElementById('FormContainer')
 let hallContainer = document.getElementById("HallContainer")
 
 //forms
-let truckForm = document.getElementById('TruckForm')
+let truckForm = document.forms.truck
 let assemblyForm = document.getElementById('AssemblyForm')
 let locationForm = document.getElementById('LocationForm')
+
+//lists
+let Trucks = [];
+let AssemblyLines = [];
 
 //costum elements
 
@@ -34,9 +38,18 @@ class Truck extends HTMLElement {
         this.width = width;
         this.interval = interval;
         this.space = new Array(length).fill().map(() => new Array(width).fill(0)); //plaats en bezet|| false en true
+        this.available = true;
+
     }
+
     connectedCallback() {
         this.render();
+    }    
+
+    disconnectedCallback(){
+        this.replaceChildren();
+        this.remove();
+
     }
 
     render() {
@@ -67,7 +80,20 @@ class Truck extends HTMLElement {
         truckGrid.ondrop = drop;
         truckGrid.ondragover = allowDrop;
 
+        let leaveButton = document.createElement('button');
+        leaveButton.innerHTML = 'Go';
+        leaveButton.style.height = '25px';
+        leaveButton.style.width = '50px';
+        leaveButton.addEventListener('click', () => leave(this.parentElement.parentElement, this));
+
+        let image = document.createElement('img');
+        image.src = 'Assets/truck3.png';
+        image.style.height = '250px';
+        
         this.appendChild(truckGrid);
+        this.appendChild(image);
+        this.appendChild(leaveButton);
+        
     }
 
     show() {
@@ -94,8 +120,34 @@ class Truck extends HTMLElement {
             }
         }
         return true;
+    }    
+}
 
-    }
+function dock(truck){
+    truck.available = true;
+    let id = 0;
+    AssemblyLines.forEach(assemblyline => {
+        if(assemblyline.open){
+            addTruckToAssemblyLine(assemblyline, truck);
+        }
+        id ++;
+    });
+};
+
+function leave(assemblyLine, truck){
+
+    truck.available = false;
+    removeTruckFromAssemblyLine(assemblyLine, truck);
+
+    
+    Trucks.forEach((truckElement) =>{
+        if(truckElement.available){
+            dock(truckElement);
+            
+        }
+    });
+    //TODO change static interval to truck.interval
+    window.setInterval(dock, 10000, truck);
 }
 
 customElements.define("truck-element", Truck);
@@ -241,6 +293,7 @@ function getRandomRotation() {
 class AssemblyLine extends HTMLElement {
     constructor() {
         super();
+        this.open = true;
     }
 
     connectedCallback() {
@@ -297,13 +350,20 @@ function showForm(form) {
 
 function addAssemblyLine() {
     let assemblyline = new AssemblyLine();
+    AssemblyLines.push(assemblyline);
     hallContainer.appendChild(assemblyline);
 }
 
-function addTruckToAssemblyLine() {
-    let truckContainer = document.getElementsByClassName('TruckContainer')[0];
-    let truck = new Truck(TransportTypes.ColdTransport, 8, 8, 10);
+function addTruckToAssemblyLine(assemblyLine, truck){
+    let truckContainer = assemblyLine.children[1];
+    assemblyLine.open = false;
     truckContainer.appendChild(truck);
+}
+
+function removeTruckFromAssemblyLine(assemblyLine, truck){
+    let truckContainer = assemblyLine.children[1];
+    assemblyLine.open = true;
+    truckContainer.removeChild(truckContainer.children[0]);
 }
 
 //eventlisteners
@@ -324,29 +384,32 @@ changeLocationButton.addEventListener('click', function () {
 
 //forms
 
-let truckFormButton = document.getElementById('SubmitTruck');
-
-let Trucks = [];
-
-
-function submitForm() {
-    //TODO add form functionality
-    truckFormButton.innerHTML = "verstuurd";
+//truck form
+function submitTruckForm() {
+    let truckForm = document.forms.truck
+    let transportType = truckForm.elements[2].value;
+    let length = Number(truckForm.elements[0].value);
+    let width = Number(truckForm.elements[1].value);
+    let interval = Number(truckForm.elements[3].value);
+    let truck = new Truck(transportType, length, width, interval);
+    Trucks.push(truck);
+    dock(truck);
 }
 
-truckFormButton.addEventListener('click', submitForm);
-
-function executeCodeBlock() {
-    let hall = document.getElementById('HallContainer');
+//functionality
+function addPackages() {
     let id = 0;
-    Array.from(hall.children).forEach(element => {
+    AssemblyLines.forEach(element => {
         AddRandomPackageToAssemblyLine(id);
         id++;
     });
 }
 
-executeCodeBlock(); // Execute the code block immediately
+window.setInterval(addPackages, 10000); // Execute the code block every 10 seconds
 
-window.setInterval(executeCodeBlock, 10000); // Execute the code block every 10 seconds
+function Start(){
+    AssemblyLines.push( document.getElementsByTagName("assembly-line")[0]);
+    addPackages();
+}
 
-addTruckToAssemblyLine();
+Start();

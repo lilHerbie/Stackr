@@ -178,11 +178,9 @@ package-element{
 }
 
 truck-element{
-    /* background-image: url("Assets/truck.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    position: relative; */
+   display: flex;
+   flex-direction: row;
+   align-items: center;
 }
 
 .truckGrid{
@@ -193,8 +191,12 @@ truck-element{
     background-color: white;
 }
 
+
 .truckGrid span{
     width: 23px;
     aspect-ratio: 1/1;
+}
 
+#tempTruckContainer{
+    display: none;
 }

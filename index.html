@@ -24,11 +24,11 @@
     </nav>
     <section id="Container" >
         <section id="FormContainer">
-            <div class="Form" id="TruckForm">
+            <form class="Form" name="truck" id="TruckForm">
                 <label>Lengte</label>
-                <input class="NumberInput" type="number" id="length">
+                <input class="NumberInput" max="10" min="4" type="number" id="length">
                 <label>Breedte</label>
-                <input class="NumberInput" type="number" id="width">
+                <input class="NumberInput" max="10" min="4" type="number" id="width">
                 <label>Type transport</label>
                 <select name="transportSelect" id="transportSelect">
                     <option value="ColdTransport">Cold tranport</option>
@@ -37,12 +37,13 @@
                     <option value="Pallets">Pallets</option>
                     <option value="FastTransport">Fast transport</option>
                 </select>
-                <label>Interval</label>
-                <input class="NumberInput" type="number" id="interval">
-                <button id="SubmitTruck">versturen</button>
-            </div>
+                <label>Interval in seconden</label>
+                <input class="NumberInput" max="3600" min="30" type="number" id="interval">
+                <!-- <button type="submit" id="SubmitTruck">versturen</button> -->
+                <input type="button" id="SubmitTruck" value="Click" onClick="submitTruckForm()" />
+            </form>
             <div class="Form" id="AssemblyForm">
-                <label>Pakketjes per seconde</label>
+                <label>Interval tussen pakketjes in seconden</label>
                 <input class="NumberInput" type="number" id="speed">
                 <button>versturen</button>
             </div>
