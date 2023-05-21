@@ -186,6 +186,9 @@ truck-element{
 .truckGrid{
     display: inline-grid;
     position: relative;
+    bottom: -9.25%;
+    left: +5%;
+    background-color: white;
 }
 
 
