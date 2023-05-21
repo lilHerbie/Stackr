@@ -284,7 +284,7 @@ function AddRandomPackageToAssemblyLine(id){
 
     package.style.left = '0';
 
-    //TODO hier maak in de animatie aan, misschien kan dat beter op een andere plek
+    //TODO hier maak ik de animatie aan, misschien kan dat beter op een andere plek
     const animation = package.animate(
         [
           // keyframes
@@ -369,7 +369,7 @@ function addPackages() {
     });
 }
 
-window.setInterval(addPackages, 10000); // Execute the code block every 10 seconds
+window.setInterval(addPackages, 10000);
 
 function Start(){
     AssemblyLines.push( document.getElementsByTagName("assembly-line")[0]);
