@@ -1,7 +1,8 @@
 const apiKey = 'e1d4681ba6';
+const stad = 'Amsterdam'; 
 
-function getWeer(stat){
-    let apiUrl = `https://weerlive.nl/api/json-data-10min.php?key=${apiKey}&locatie=${stat}`;
+function getWeer(stad){
+    let apiUrl = `https://weerlive.nl/api/json-data-10min.php?key=${apiKey}&locatie=${stad}`;
     return fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
@@ -9,6 +10,7 @@ function getWeer(stat){
         })
         .catch((error) => {
             console.error("Error fetching weather data:", error);
+            return false;
     });
 }
 

@@ -29,7 +29,7 @@
     </nav>
     <section id="Container" >
         <section id="FormContainer">
-            <form class="Form" name="truck" id="TruckForm">
+            <form class="Form" name="truck">
                 <label>Lengte</label>
                 <input class="NumberInput" max="10" min="4" type="number" id="length">
                 <label>Breedte</label>
@@ -43,20 +43,20 @@
                     <option value="FastTransport">Fast transport</option>
                 </select>
                 <label>Interval in seconden</label>
-                <input class="NumberInput" max="3600" min="10" type="number" id="interval">
-                <input type="button" id="SubmitTruck" value="Click" onClick="submitTruckForm()" />
+                <input class="NumberInput" max="3600" min="10" type="number">
+                <input type="button" value="Versturen" onClick="submitTruckForm()" />
             </form>
-            <form class="Form" name="assemblySettings" id="AssemblyForm">
+            <form class="Form" name="assemblySettings">
                 <label>Interval tussen <br>pakketjes in seconden</label>
                 <input class="NumberInput" type="number" min="4" max="20" id="packetInterval">
                 <label>Snelheid van <br>pakketjes in seconden</label>
                 <input class="NumberInput" type="number" min="4" max="20" id="speed">
                 <input type="button" value="Versturen" onClick="submitAssemblyForm()" />
             </form>
-            <form class="Form" id="LocationForm">
-                <label>Postcode</label>
-                <input class="NumberInput" type="text" id="postalCode">
-                <button>versturen</button>
+            <form class="Form" name="api">
+                <label>Plaatsnaam</label>
+                <input type="text" id="cityName">
+                <input type="button" value="Versturen" onClick="submitApiForm()" />
             </form>
         </section>
         <section id="HallContainer">

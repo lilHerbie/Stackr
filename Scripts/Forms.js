@@ -114,6 +114,14 @@ function submitAssemblyForm() {
     
 }
 
-function submitLocationForm(){
-    
+function submitApiForm(){
+    let apiForm = document.forms.api;
+    let city = apiForm.elements[0].value;
+
+    if(city === null || city === ""){
+        alert("De plaatsnaam moet een waarde hebben");
+        return false;
+    }
+
+    stad = city;
 }
