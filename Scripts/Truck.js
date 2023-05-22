@@ -51,6 +51,7 @@ class Truck extends HTMLElement {
             }
         }
 
+        this.id = this.truckId;
         this.className = 'truckDiv';
         this.style.height = '250px';
         this.style.width = '250px';
