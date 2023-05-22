@@ -18,7 +18,6 @@ class Truck extends HTMLElement {
         this.space = new Array(length).fill().map(() => new Array(width).fill(0));
         this.available = true;
         this.truckId = truckcount++;
-        // this.assemblyLineId = assemblyLineId;
     }
 
     connectedCallback() {
@@ -65,7 +64,7 @@ class Truck extends HTMLElement {
         leaveButton.style.height = '25px';
         leaveButton.style.width = '50px';
 
-        leaveButton.addEventListener('click', () => this.leave());
+        leaveButton.addEventListener('click', () => this.canLeave());
 
         let image = document.createElement('img');
         image.src = 'Assets/truck3.png';
@@ -158,29 +157,5 @@ class Truck extends HTMLElement {
     }
 }
 let truckcount = 0;
-
-function dock(truck) {
-    truck.available = true;
-    let id = 0;
-    AssemblyLines.forEach(assemblyline => {
-        if (assemblyline.open) {
-            addTruckToAssemblyLine(assemblyline, truck);
-        }
-        id++;
-    });
-};
-
-function leave(truck, assemblyLine) {
-    truck.available = false;
-    removeTruckFromAssemblyLine(truck, assemblyLine);
-
-    Trucks.forEach((truckElement) => {
-        if (truckElement.available) {
-            dock(truckElement);
-        }
-    });
-
-    window.setTimeout(dock, truck.interval, truck);
-}
 
 customElements.define("truck-element", Truck);
