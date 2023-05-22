@@ -1,12 +1,12 @@
 let Trucks = [];
 
 const TransportTypes = {
-        ColdTransport: "Cold tranport",
-        FragileTransport: "Fragile transport",
-        GeneralTransport: "General transport",
-        Pallets: "Pallets",
-        FastTransport: "Fast transport"
-    }
+    ColdTransport: "Cold tranport",
+    FragileTransport: "Fragile transport",
+    GeneralTransport: "General transport",
+    Pallets: "Pallets",
+    FastTransport: "Fast transport"
+ }
 
 class Truck extends HTMLElement {
     constructor(transportType, length, width, interval) {
@@ -15,7 +15,7 @@ class Truck extends HTMLElement {
         this.length = length;
         this.width = width;
         this.interval = interval * 1000;
-        this.space = new Array(length).fill().map(() => new Array(width).fill(0)); //plaats en bezet|| false en true
+        this.space = new Array(length).fill().map(() => new Array(width).fill(0));
         this.available = true;
         this.truckId = truckcount++;
     }
@@ -63,7 +63,7 @@ class Truck extends HTMLElement {
         leaveButton.innerHTML = 'Go';
         leaveButton.style.height = '25px';
         leaveButton.style.width = '50px';
-        leaveButton.addEventListener('click', () => leave(this.parentElement.parentElement, this));
+        leaveButton.addEventListener('click', () => leave(this, this.parentElement.parentElement));
 
         let image = document.createElement('img');
         image.src = 'Assets/truck3.png';
@@ -114,18 +114,16 @@ function dock(truck) {
     });
 };
 
-function leave(assemblyLine, truck) {
-
+function leave(truck, assemblyLine) {
     truck.available = false;
-    removeTruckFromAssemblyLine(assemblyLine, truck);
-
+    removeTruckFromAssemblyLine(truck, assemblyLine);
 
     Trucks.forEach((truckElement) => {
         if (truckElement.available) {
             dock(truckElement);
-
         }
     });
+
     window.setTimeout(dock, truck.interval, truck);
 }
 

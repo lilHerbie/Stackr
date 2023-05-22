@@ -201,7 +201,6 @@ truck-element{
 #TruckHallContainer{
     flex-shrink: 5;
     flex-grow: 5;
-    display: none;
     flex-direction: column;
     justify-content: flex-start;
     min-height: 90vh;

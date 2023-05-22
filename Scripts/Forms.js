@@ -30,8 +30,14 @@ function showForm(form) {
 }
 
 function switchHall(){
-    truckHallContainer.style.display = (truckHallContainer.style.display === 'none') ? 'flex' : 'none';
-    hallContainer.style.display = (truckHallContainer.style.display === 'none') ? 'none' : 'flex';    
+    if(truckHallContainer.style.display === 'none'){
+        truckHallContainer.style.display = 'flex';
+        hallContainer.style.display = 'none';
+    }
+    else if(truckHallContainer.style.display === 'flex'){
+        truckHallContainer.style.display = 'none';
+        hallContainer.style.display = 'flex';
+    }
 }
 
 function addAssemblyLine() {
@@ -46,10 +52,13 @@ function addTruckToAssemblyLine(assemblyLine, truck){
     truckContainer.appendChild(truck);
 }
 
-function removeTruckFromAssemblyLine(assemblyLine, truck){
-    let truckContainer = assemblyLine.children[1];
+function removeTruckFromAssemblyLine(truck, assemblyLine){
+    // let truckContainer = assemblyLine.children[1];
+    
+    // truckContainer.removeChild(truckContainer.children[0]);
+    truckHallContainer.appendChild(truck);
     assemblyLine.open = true;
-    truckContainer.removeChild(truckContainer.children[0]);
+    
 }
 
 //eventlisteners
@@ -67,6 +76,8 @@ assmblylineSettingsButton.addEventListener('click', function () {
 changeLocationButton.addEventListener('click', function () {
     showForm(locationForm);
 });
+
+changeHallButton.addEventListener('click', function () {switchHall()});
 
 //forms
 
