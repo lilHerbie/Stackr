@@ -109,7 +109,6 @@ class Truck extends HTMLElement {
     canLeave() {
         getWeer().then((apiweer) => {
             let canLeave = false;
-            console.log(apiweer);
             switch (this.transportType) {
                 case TransportTypes.ColdTransport:
                     if (apiweer.tempratuur < 35) {
