@@ -10,6 +10,7 @@ let changeHallButton = document.getElementById('ChangeHallButton');
 //containers
 let formContainer = document.getElementById('FormContainer')
 let hallContainer = document.getElementById("HallContainer")
+let truckHallContainer = document.getElementById("TruckHallContainer");
 
 //forms
 let truckForm = document.forms.truck
@@ -26,6 +27,11 @@ function showForm(form) {
     assemblyForm.style.display = 'none';
     locationForm.style.display = 'none';
     form.style.display = 'flex';
+}
+
+function switchHall(){
+    truckHallContainer.style.display = (truckHallContainer.style.display === 'none') ? 'flex' : 'none';
+    hallContainer.style.display = (truckHallContainer.style.display === 'none') ? 'none' : 'flex';    
 }
 
 function addAssemblyLine() {

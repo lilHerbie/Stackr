@@ -29,7 +29,7 @@
     </nav>
     <section id="Container" >
         <section id="FormContainer">
-            <form class="Form" name="truck">
+            <form class="Form" name="truck" id="TruckForm">
                 <label>Lengte</label>
                 <input class="NumberInput" max="10" min="4" type="number" id="length">
                 <label>Breedte</label>
@@ -46,14 +46,14 @@
                 <input class="NumberInput" max="3600" min="10" type="number">
                 <input type="button" value="Versturen" onClick="submitTruckForm()" />
             </form>
-            <form class="Form" name="assemblySettings">
+            <form class="Form" name="assemblySettings" id="AssemblyForm">
                 <label>Interval tussen <br>pakketjes in seconden</label>
                 <input class="NumberInput" type="number" min="4" max="20" id="packetInterval">
                 <label>Snelheid van <br>pakketjes in seconden</label>
                 <input class="NumberInput" type="number" min="4" max="20" id="speed">
                 <input type="button" value="Versturen" onClick="submitAssemblyForm()" />
             </form>
-            <form class="Form" name="api">
+            <form class="Form" name="api" id="LocationForm">
                 <label>Plaatsnaam</label>
                 <input type="text" id="cityName">
                 <input type="button" value="Versturen" onClick="submitApiForm()" />
@@ -61,6 +61,9 @@
         </section>
         <section id="HallContainer">
             <assembly-line></assembly-line>
+        </section>
+        <section id="TruckHallContainer">
+            
         </section>
     </section>
 

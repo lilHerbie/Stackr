@@ -198,6 +198,12 @@ truck-element{
     aspect-ratio: 1/1;
 }
 
-#tempTruckContainer{
+#TruckHallContainer{
+    flex-shrink: 5;
+    flex-grow: 5;
     display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 90vh;
 }
+
