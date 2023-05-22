@@ -153,6 +153,7 @@ package-element{
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    text-align: center;
 }
 
 #TruckForm{
@@ -186,8 +187,8 @@ truck-element{
 .truckGrid{
     display: inline-grid;
     position: relative;
-    bottom: -9.25%;
-    left: +5%;
+    /* bottom: -9.25%;
+    left: +5%; */
     background-color: white;
 }
 

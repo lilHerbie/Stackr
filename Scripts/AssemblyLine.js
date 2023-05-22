@@ -1,4 +1,10 @@
+let AssemblyLines = [];
+
 class AssemblyLine extends HTMLElement {
+    
+    static interval = 6000;
+    static speed = 20000;
+
     constructor() {
         super();
         this.open = true;
@@ -6,7 +12,7 @@ class AssemblyLine extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML =
-            `   <div class="AssemblyLine">
+            `<div class="AssemblyLine">
                 <img class="assemblyImg" src="Assets/AssemblyLine.png" >
                 <div class="packageContainer"></div>
             </div>
@@ -33,14 +39,13 @@ function AddRandomPackageToAssemblyLine(id) {
         [
             // keyframes
             { transform: `translateX(0px)` },
-            { transform: `translateX(${assemblyline.clientWidth - 60}px)` },
+            { transform: `translateX(${assemblyline.clientWidth - 50}px)` },
         ],
         {
             // timing options
-            duration: 30000,
+            duration: AssemblyLine.speed,
             iterations: 1,
             fill: "forwards"
-
         }
     );
 
@@ -51,9 +56,14 @@ function AddRandomPackageToAssemblyLine(id) {
 function addPackages() {
     let id = 0;
     AssemblyLines.forEach(element => {
-        AddRandomPackageToAssemblyLine(id);
+        AddRandomPackageToAssemblyLine(id);   
         id++;
     });
 }
 
-window.setInterval(addPackages, 10000);
+function timeout() {
+    setTimeout(() => {
+        addPackages();
+        timeout();
+    }, AssemblyLine.interval);
+};

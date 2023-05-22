@@ -1,3 +1,5 @@
+let Trucks = [];
+
 const TransportTypes = {
         ColdTransport: "Cold tranport",
         FragileTransport: "Fragile transport",
@@ -13,7 +15,7 @@ class Truck extends HTMLElement {
         this.transportType = transportType;
         this.length = length;
         this.width = width;
-        this.interval = interval;
+        this.interval = interval * 1000;
         this.space = new Array(length).fill().map(() => new Array(width).fill(0)); //plaats en bezet|| false en true
         this.available = true;
 
@@ -123,8 +125,7 @@ function leave(assemblyLine, truck){
             
         }
     });
-    //TODO change static interval to truck.interval
-    window.setInterval(dock, 10000, truck);
+    window.setTimeout(dock, truck.interval, truck);
 }
 
 customElements.define("truck-element", Truck);
