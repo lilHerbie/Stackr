@@ -47,21 +47,12 @@ function addAssemblyLine() {
 }
 
 function addTruckToAssemblyLine(assemblyLine, truck){
+    console.log(document.getElementsByClassName('TruckContainer'));
+    
     let truckContainer = assemblyLine.children[1];
     assemblyLine.open = false;
     truckContainer.appendChild(truck);
 }
-
-function removeTruckFromAssemblyLine(truck, assemblyLine){
-    // let truckContainer = assemblyLine.children[1];
-    
-    // truckContainer.removeChild(truckContainer.children[0]);
-    truckHallContainer.appendChild(truck);
-    assemblyLine.open = true;
-    
-}
-
-//eventlisteners
 
 addTruckButton.addEventListener('click', function () {
     showForm(truckForm);

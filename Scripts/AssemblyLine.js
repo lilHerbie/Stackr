@@ -12,11 +12,11 @@ class AssemblyLine extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML =
-            `<div class="AssemblyLine">
+            `<div id="AssemblyLine" class="AssemblyLine">
                 <img class="assemblyImg" src="Assets/AssemblyLine.png" >
                 <div class="packageContainer"></div>
             </div>
-            <div class="TruckContainer">
+            <div id="TruckContainer" class="TruckContainer">
 
             </div>
         `;

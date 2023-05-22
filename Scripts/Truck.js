@@ -6,7 +6,7 @@ const TransportTypes = {
     GeneralTransport: "General transport",
     Pallets: "Pallets",
     FastTransport: "Fast transport"
- }
+}
 
 class Truck extends HTMLElement {
     constructor(transportType, length, width, interval) {
@@ -18,6 +18,7 @@ class Truck extends HTMLElement {
         this.space = new Array(length).fill().map(() => new Array(width).fill(0));
         this.available = true;
         this.truckId = truckcount++;
+        // this.assemblyLineId = assemblyLineId;
     }
 
     connectedCallback() {
@@ -63,7 +64,8 @@ class Truck extends HTMLElement {
         leaveButton.innerHTML = 'Go';
         leaveButton.style.height = '25px';
         leaveButton.style.width = '50px';
-        leaveButton.addEventListener('click', () => leave(this, this.parentElement.parentElement));
+
+        leaveButton.addEventListener('click', () => this.leave());
 
         let image = document.createElement('img');
         image.src = 'Assets/truck3.png';
@@ -95,6 +97,60 @@ class Truck extends HTMLElement {
                 if (arr[i][j] == 1) {
                     document.getElementById('truck-' + this.truckId + ':' + (posy + j) + ':' + (posx + i)).style.backgroundColor = color;
                     this.space[posx + i][posy + j] = arr[i][j];
+                }
+            }
+        }
+
+        if (this.isFull()) {
+            this.canLeave();
+        }
+        return true;
+    }
+
+    canLeave() {
+        getWeer().then((apiweer) => {
+            let canLeave = false;
+            console.log(apiweer);
+            switch (this.transportType) {
+                case TransportTypes.ColdTransport:
+                    if (apiweer.tempratuur < 35) {
+                        canLeave = true;
+                    }
+                    break;
+                case TransportTypes.FragileTransport:
+                    if(!['regen','sneeuw','halfbewolkt_regen'].includes(apiweer.weer)){
+                        canLeave = true;
+                    }
+                    break;
+                case TransportTypes.Pallets:
+                    if (apiweer.windKracht < 7){
+                        canLeave = true;
+                    }
+                    break;
+                default:
+                    canLeave = true;
+                    break;
+            }
+
+            if (!canLeave) {
+                goToHall();
+            }
+            this.leave();
+        });
+        
+    }
+    
+    leave() {
+        //TODO animatie
+
+        this.remove();
+    }
+    
+    isFull() {
+        for (let i = 0; i < this.space.length; i++) {
+            for (let j = 0; j < this.space[i].length; j++) {
+                if (!this.space[i][j]) {
+                    return false;
                 }
             }
         }

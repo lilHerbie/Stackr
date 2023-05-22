@@ -21,7 +21,7 @@ class Package extends HTMLElement {
                     gridElement.style.gridColumnStart = j + 1;
                     gridElement.style.gridColumnEnd = j + 1;
                     gridElement.style.backgroundColor = this.color;
-                    gridElement.addEventListener('mousedown', this.elementDragged)
+                    gridElement.addEventListener('mousedown', this.packageDragged)
                     gridElement.id = j + ':' + i;
                     this.appendChild(gridElement);
                 }
@@ -33,39 +33,39 @@ class Package extends HTMLElement {
         this.ondragstart = drag;
     }
 
-    elementDragged(event) {
-        elementdragged = event.target;
+    packageDragged(event) {
+        packagedragged = event.target;
     }
 }
 
-let elementdragged;
+let packagedragged;
 
 function allowDrop(event) {
     event.preventDefault();
 }
 
 function drag(event) {
-    if (elementdragged == null) {
+    if (packagedragged == null) {
         event.preventDefault();
     }
     event.dataTransfer.setData("text", event.target.id);
 }
 
 function drop(event) {
-    if (elementdragged == null) {
+    if (packagedragged == null) {
         return;
     }
     event.preventDefault();
 
-    let elementpos = elementdragged.id.split(":");
+    let elementpos = packagedragged.id.split(":");
     let targetpos = event.target.id.split(":");
 
     let coordinatex = targetpos[2] - elementpos[1];
     let coordinatey = targetpos[1] - elementpos[0];
     let truck = event.target.parentNode.parentNode;
-    if (truck.place(coordinatex, coordinatey, elementdragged.parentNode.shape, elementdragged.parentNode.color)) {
-        elementdragged.parentNode.remove();
-        elementdragged = null;
+    if (truck.place(coordinatex, coordinatey, packagedragged.parentNode.shape, packagedragged.parentNode.color)) {
+        packagedragged.parentNode.remove();
+        packagedragged = null;
     }
 }
 
