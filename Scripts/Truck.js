@@ -8,7 +8,6 @@ const TransportTypes = {
         FastTransport: "Fast transport"
     }
 
-
 class Truck extends HTMLElement {
     constructor(transportType, length, width, interval) {
         super();
@@ -18,14 +17,14 @@ class Truck extends HTMLElement {
         this.interval = interval * 1000;
         this.space = new Array(length).fill().map(() => new Array(width).fill(0)); //plaats en bezet|| false en true
         this.available = true;
-
+        this.truckId = truckcount++;
     }
 
     connectedCallback() {
         this.render();
-    }    
+    }
 
-    disconnectedCallback(){
+    disconnectedCallback() {
         this.replaceChildren();
         this.remove();
 
@@ -47,7 +46,7 @@ class Truck extends HTMLElement {
                 gridElement.style.gridColumnStart = j + 1;
                 gridElement.style.gridColumnEnd = j + 1;
                 gridElement.style.border = 'black solid 1px';
-                gridElement.id = 'truck:' + j + ':' + i;
+                gridElement.id = 'truck-' + this.truckId + ':' + j + ':' + i;
                 truckGrid.appendChild(gridElement);
             }
         }
@@ -68,11 +67,11 @@ class Truck extends HTMLElement {
         let image = document.createElement('img');
         image.src = 'Assets/truck3.png';
         image.style.height = '250px';
-        
+
         this.appendChild(truckGrid);
         this.appendChild(image);
         this.appendChild(leaveButton);
-        
+
     }
 
     show() {
@@ -93,36 +92,37 @@ class Truck extends HTMLElement {
         for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < arr[0].length; j++) {
                 if (arr[i][j] == 1) {
-                    document.getElementById('truck:' + (posy + j) + ':' + (posx + i)).style.backgroundColor = color;
+                    document.getElementById('truck-' + this.truckId + ':' + (posy + j) + ':' + (posx + i)).style.backgroundColor = color;
                     this.space[posx + i][posy + j] = arr[i][j];
                 }
             }
         }
         return true;
-    }    
+    }
 }
+let truckcount = 0;
 
-function dock(truck){
+function dock(truck) {
     truck.available = true;
     let id = 0;
     AssemblyLines.forEach(assemblyline => {
-        if(assemblyline.open){
+        if (assemblyline.open) {
             addTruckToAssemblyLine(assemblyline, truck);
         }
-        id ++;
+        id++;
     });
 };
 
-function leave(assemblyLine, truck){
+function leave(assemblyLine, truck) {
 
     truck.available = false;
     removeTruckFromAssemblyLine(assemblyLine, truck);
 
-    
-    Trucks.forEach((truckElement) =>{
-        if(truckElement.available){
+
+    Trucks.forEach((truckElement) => {
+        if (truckElement.available) {
             dock(truckElement);
-            
+
         }
     });
     window.setTimeout(dock, truck.interval, truck);
