@@ -16,9 +16,7 @@ class AssemblyLine extends HTMLElement {
                 <img class="assemblyImg" src="Assets/AssemblyLine.png" >
                 <div class="packageContainer"></div>
             </div>
-            <div id="TruckContainer" class="TruckContainer">
-
-            </div>
+            <div id="TruckContainer" class="TruckContainer"></div>
         `;
     }
 }

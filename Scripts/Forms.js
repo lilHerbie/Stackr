@@ -29,15 +29,14 @@ function showForm(form) {
     form.style.display = 'flex';
 }
 
-
-function switchHall(){
-    if(truckHallContainer.style.display === 'none'){
+function switchHall() {
+    if (truckHallContainer.style.display === 'none') {
         truckHallContainer.style.display = 'flex';
         loadTruckHall();
         hallContainer.style.display = 'none';
         
     }
-    else if(truckHallContainer.style.display === 'flex'){
+    else if (truckHallContainer.style.display === 'flex') {
         truckHallContainer.style.display = 'none';
         hallContainer.style.display = 'flex';
     }
@@ -57,14 +56,6 @@ function addAssemblyLine() {
     hallContainer.appendChild(assemblyline);
 }
 
-function addTruckToAssemblyLine(assemblyLine, truck){
-    console.log(document.getElementsByClassName('TruckContainer'));
-    
-    let truckContainer = assemblyLine.children[1];
-    assemblyLine.open = false;
-    truckContainer.appendChild(truck);
-}
-
 addTruckButton.addEventListener('click', function () {
     showForm(truckForm);
 });
@@ -79,38 +70,45 @@ changeLocationButton.addEventListener('click', function () {
     showForm(locationForm);
 });
 
-changeHallButton.addEventListener('click', function () {switchHall()});
+changeHallButton.addEventListener('click', function () { switchHall() });
 
 //forms
 
 //truck form
-function submitTruckForm() {
+function addTruck() {
     let truckForm = document.forms.truck;
     let length = Number(truckForm.elements[0].value);
     let width = Number(truckForm.elements[1].value);
     let transportType = truckForm.elements[2].value;
     let interval = Number(truckForm.elements[3].value);
 
-    if(length === 0){
+    if (length === 0) {
         alert("De lengte mag niet nul zijn");
         return false;
     }
-    if(width === 0){
+    if (width === 0) {
         alert("De breedte mag niet nul zijn");
         return false;
     }
-    if(transportType === null || transportType === ""){
+    if (transportType === null || transportType === "") {
         alert("Het transporttype mag niet nul zijn");
         return false;
     }
-    if(interval === 0){
+    if (interval === 0) {
         alert("Het interval mag niet nul zijn");
         return false;
     }
 
-    let truck = new Truck(transportType, length, width, interval);
-    Trucks.push(truck);
-    dock(truck);
+    let containers = document.getElementsByClassName('TruckContainer');
+
+    for (let i = 0; i < containers.length; i++) {
+        if (!containers[i].hasChildNodes()) {
+            let truck = new Truck(transportType, length, width, interval);
+            Trucks.push(truck);
+            containers[i].appendChild(truck);
+            break;
+        }
+    }
 }
 
 //assemblylinesetting form
@@ -119,25 +117,25 @@ function submitAssemblyForm() {
     let intervalLocal = Number(assemblyForm.elements[0].value);
     let speedLocal = Number(assemblyForm.elements[1].value);
 
-    if(intervalLocal === 0){
+    if (intervalLocal === 0) {
         alert("Het interval mag niet nul zijn");
         return false;
     }
-    if(speedLocal === 0){
+    if (speedLocal === 0) {
         alert("De snelheid mag niet nul zijn");
         return false;
     }
 
     AssemblyLine.interval = intervalLocal * 1000;
     AssemblyLine.speed = speedLocal * 1000;
-    
+
 }
 
-function submitApiForm(){
+function submitApiForm() {
     let apiForm = document.forms.api;
     let city = apiForm.elements[0].value;
 
-    if(city === null || city === ""){
+    if (city === null || city === "") {
         alert("De plaatsnaam moet een waarde hebben");
         return false;
     }

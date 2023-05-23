@@ -19,7 +19,6 @@ class Truck extends HTMLElement {
         this.space = new Array(length).fill().map(() => new Array(width).fill(0));
         this.available = true;
         this.truckId = truckcount++;
-        // this.assemblyLineId = assemblyLineId;
     }
 
     connectedCallback() {
@@ -111,7 +110,6 @@ class Truck extends HTMLElement {
     canLeave() {
         getWeer().then((apiweer) => {
             let canLeave = false;
-            console.log(apiweer);
             switch (this.transportType) {
                 case TransportTypes.ColdTransport:
                     if (apiweer.tempratuur < 35) {
