@@ -29,15 +29,26 @@ function showForm(form) {
     form.style.display = 'flex';
 }
 
+
 function switchHall(){
     if(truckHallContainer.style.display === 'none'){
         truckHallContainer.style.display = 'flex';
+        loadTruckHall();
         hallContainer.style.display = 'none';
+        
     }
     else if(truckHallContainer.style.display === 'flex'){
         truckHallContainer.style.display = 'none';
         hallContainer.style.display = 'flex';
     }
+
+}
+
+function loadTruckHall(){
+    let truckHallContainerLocal = document.getElementById("TruckHallContainer");
+    TrucksThatCantLeave.forEach(truck => {
+        truckHallContainerLocal.appendChild(truck);
+    });
 }
 
 function addAssemblyLine() {

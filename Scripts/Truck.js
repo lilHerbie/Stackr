@@ -1,4 +1,5 @@
 let Trucks = [];
+let TrucksThatCantLeave = [];
 
 const TransportTypes = {
     ColdTransport: "Cold tranport",
@@ -65,7 +66,7 @@ class Truck extends HTMLElement {
         leaveButton.style.height = '25px';
         leaveButton.style.width = '50px';
 
-        leaveButton.addEventListener('click', () => this.leave());
+        leaveButton.addEventListener('click', () => this.canLeave());
 
         let image = document.createElement('img');
         image.src = 'Assets/truck3.png';
@@ -133,17 +134,23 @@ class Truck extends HTMLElement {
             }
 
             if (!canLeave) {
-                goToHall();
+                this.goToHall();
             }
-            this.leave();
+            // this.leave();
+            this.goToHall();
         });
         
     }
     
     leave() {
         //TODO animatie
-
+        
         this.remove();
+    }
+
+    goToHall(){
+        TrucksThatCantLeave.push(this);
+        this.replaceChildren();
     }
     
     isFull() {
@@ -170,17 +177,17 @@ function dock(truck) {
     });
 };
 
-function leave(truck, assemblyLine) {
-    truck.available = false;
-    removeTruckFromAssemblyLine(truck, assemblyLine);
+// function leave(truck, assemblyLine) {
+//     truck.available = false;
+//     removeTruckFromAssemblyLine(truck, assemblyLine);
 
-    Trucks.forEach((truckElement) => {
-        if (truckElement.available) {
-            dock(truckElement);
-        }
-    });
+//     Trucks.forEach((truckElement) => {
+//         if (truckElement.available) {
+//             dock(truckElement);
+//         }
+//     });
 
-    window.setTimeout(dock, truck.interval, truck);
-}
+//     window.setTimeout(dock, truck.interval, truck);
+// }
 
 customElements.define("truck-element", Truck);
