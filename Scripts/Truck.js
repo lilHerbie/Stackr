@@ -46,7 +46,7 @@ class Truck extends HTMLElement {
                 gridElement.style.gridRowEnd = i + 1;
                 gridElement.style.gridColumnStart = j + 1;
                 gridElement.style.gridColumnEnd = j + 1;
-                gridElement.style.border = 'black solid 1px';
+                gridElement.style.border = 'gray solid 1px';
                 gridElement.id = 'truck-' + this.truckId + ':' + j + ':' + i;
                 truckGrid.appendChild(gridElement);
             }
@@ -95,7 +95,9 @@ class Truck extends HTMLElement {
         for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < arr[0].length; j++) {
                 if (arr[i][j] == 1) {
-                    document.getElementById('truck-' + this.truckId + ':' + (posy + j) + ':' + (posx + i)).style.backgroundColor = color;
+                    let element = document.getElementById('truck-' + this.truckId + ':' + (posy + j) + ':' + (posx + i));
+                    element.style.backgroundColor = color;
+                    element.style.border = 'black solid 1px';
                     this.space[posx + i][posy + j] = arr[i][j];
                 }
             }
