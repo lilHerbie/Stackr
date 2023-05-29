@@ -12,5 +12,4 @@
 7. Er zijn twee laadhallen beschikbaar. Je kan wisselen tussen de hallen zonder dat de pagina opnieuw wordt geladen.
 8. Afhankelijk van het weer (via API aanroepen) zullen sommige vrachtwagens niet rijden. Maak een oplossing dat je makkelijk de stad/locatie van de api call kan aanpassen. Hierdoor kan je makkelijk van weertype wisselen. Als het regent of sneeuwt rijd de Breekbaar Transport niet. Als het boven de 35 graden is rijd de Koud transport niet. Bij harde wind rijdt de palletvrachtwagen niet. Pakketten voor deze vrachtwagens worden dan op een speciale plek opgeslagen. Dat mag zelfs een extra hal zijn. Zorg ervoor dat je een 'debug' veldje aanmaakt in het systeem dat je snel van lokatie kan veranderen om een ander weertype te krijgen. Je mag meerdere API's aanroepen om bijvoorbeeld betere windsnelheden te krijgen.
 9. Extra creativiteit wordt beloond! dat kan in vele vormen. Je kan zelfs je applicatie laten communiceren met TrackR (WEBPHP).
-10. - als het bij het eind van de band is dan flikkert het op de grond.
-11. - extra geluids effecte
+11. - extra geluids effecten

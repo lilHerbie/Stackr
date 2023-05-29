@@ -17,10 +17,6 @@ let truckForm = document.forms.truck
 let assemblyForm = document.getElementById('AssemblyForm')
 let locationForm = document.getElementById('LocationForm')
 
-//lists
-
-
-
 function showForm(form) {
     formContainer.style.display = formContainer.style.display === 'flex' ? 'none' : 'flex';
     truckForm.style.display = 'none';
@@ -82,12 +78,12 @@ function addTruck() {
     let transportType = truckForm.elements[2].value;
     let interval = Number(truckForm.elements[3].value);
 
-    if (length === 0) {
-        alert("De lengte mag niet nul zijn");
+    if ((length < 4 || length > 20)|| length === 'null') {
+        alert("De lengte an de vrachtwagen mag niet kleiner zijn dan 4 en niet groter zijn dan 20");
         return false;
     }
-    if (width === 0) {
-        alert("De breedte mag niet nul zijn");
+    if ((width < 4 || width > 20)|| length === 'null') {
+        alert("De breedte van de vrachtwagen mag niet kleiner zijn dan 4 en niet groter zijn dan 20");
         return false;
     }
     if (transportType === null || transportType === "") {

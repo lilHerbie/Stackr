@@ -25,10 +25,8 @@ class Truck extends HTMLElement {
         this.render();
     }
 
-    disconnectedCallback() {
+    disconnectedCallback() {   
         this.replaceChildren();
-        this.remove();
-
     }
 
     render() {
@@ -71,9 +69,35 @@ class Truck extends HTMLElement {
         image.src = 'Assets/truck3.png';
         image.style.height = '250px';
 
+        let icon = document.createElement('i');
+
+        switch(this.transportType){
+            case 'Cold transport':
+                icon.className = 'fa-solid';
+                icon.className = 'fa-snowflake';
+                break;
+            case 'Fragile transport':
+                icon.className = 'fa-solid fa-square-fragile';
+                break;
+            case 'General transport':
+                icon.className = '<fa-solid fa-truck';
+                break;
+            case 'Pallets':
+                icon.className = 'fa-solid fa-pallet';
+                break;
+            case 'Fast transport':
+                icon.className = 'fa-solid fa-truck-fast';
+                break;
+            default:
+                icon.className = '<fa-solid fa-truck';
+                break;
+        }
+
+
         this.appendChild(truckGrid);
         this.appendChild(image);
         this.appendChild(leaveButton);
+        this.appendChild(icon);
 
     }
 
@@ -134,8 +158,7 @@ class Truck extends HTMLElement {
             if (!canLeave) {
                 this.goToHall();
             }
-            // this.leave();
-            this.goToHall();
+            this.leave();
         });
         
     }
@@ -162,30 +185,7 @@ class Truck extends HTMLElement {
         return true;
     }
 }
+
 let truckcount = 0;
-
-function dock(truck) {
-    truck.available = true;
-    let id = 0;
-    AssemblyLines.forEach(assemblyline => {
-        if (assemblyline.open) {
-            addTruckToAssemblyLine(assemblyline, truck);
-        }
-        id++;
-    });
-};
-
-// function leave(truck, assemblyLine) {
-//     truck.available = false;
-//     removeTruckFromAssemblyLine(truck, assemblyLine);
-
-//     Trucks.forEach((truckElement) => {
-//         if (truckElement.available) {
-//             dock(truckElement);
-//         }
-//     });
-
-//     window.setTimeout(dock, truck.interval, truck);
-// }
 
 customElements.define("truck-element", Truck);
