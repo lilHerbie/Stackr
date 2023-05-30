@@ -8,14 +8,19 @@ let changeLocationButton = document.getElementById('ChangeLocationButton');
 let changeHallButton = document.getElementById('ChangeHallButton');
 
 //containers
-let formContainer = document.getElementById('FormContainer')
-let hallContainer = document.getElementById("HallContainer")
+let formContainer = document.getElementById('FormContainer');
+let hallContainer = document.getElementById("HallContainer");
 let truckHallContainer = document.getElementById("TruckHallContainer");
 
 //forms
 let truckForm = document.forms.truck
-let assemblyForm = document.getElementById('AssemblyForm')
-let locationForm = document.getElementById('LocationForm')
+let assemblyForm = document.getElementById('AssemblyForm');
+let locationForm = document.getElementById('LocationForm');
+
+//form button
+let truckSubmitButton = document.getElementById('TruckSubmit');
+let assemblySubmitButton = document.getElementById('AssemblySubmit');
+let locationSubmitButton = document.getElementById('LocationSubmit');
 
 function showForm(form) {
     formContainer.style.display = formContainer.style.display === 'flex' ? 'none' : 'flex';
@@ -30,16 +35,15 @@ function switchHall() {
         truckHallContainer.style.display = 'flex';
         loadTruckHall();
         hallContainer.style.display = 'none';
-        
+
     }
     else if (truckHallContainer.style.display === 'flex') {
         truckHallContainer.style.display = 'none';
         hallContainer.style.display = 'flex';
     }
-
 }
 
-function loadTruckHall(){
+function loadTruckHall() {
     let truckHallContainerLocal = document.getElementById("TruckHallContainer");
     TrucksThatCantLeave.forEach(truck => {
         truckHallContainerLocal.appendChild(truck);
@@ -52,22 +56,6 @@ function addAssemblyLine() {
     hallContainer.appendChild(assemblyline);
 }
 
-addTruckButton.addEventListener('click', function () {
-    showForm(truckForm);
-});
-
-addAssemblylineButton.addEventListener('click', addAssemblyLine);
-
-assmblylineSettingsButton.addEventListener('click', function () {
-    showForm(assemblyForm);
-});
-
-changeLocationButton.addEventListener('click', function () {
-    showForm(locationForm);
-});
-
-changeHallButton.addEventListener('click', function () { switchHall() });
-
 //forms
 
 //truck form
@@ -78,11 +66,11 @@ function addTruck() {
     let transportType = truckForm.elements[2].value;
     let interval = Number(truckForm.elements[3].value);
 
-    if ((length < 4 || length > 20)|| length === 'null') {
+    if ((length < 4 || length > 20) || length === 'null') {
         alert("De lengte an de vrachtwagen mag niet kleiner zijn dan 4 en niet groter zijn dan 20");
         return false;
     }
-    if ((width < 4 || width > 20)|| length === 'null') {
+    if ((width < 4 || width > 20) || length === 'null') {
         alert("De breedte van de vrachtwagen mag niet kleiner zijn dan 4 en niet groter zijn dan 20");
         return false;
     }
@@ -90,8 +78,8 @@ function addTruck() {
         alert("Het transporttype mag niet nul zijn");
         return false;
     }
-    if (interval === 0) {
-        alert("Het interval mag niet nul zijn");
+    if ((interval < 3 || interval > 1000) || interval === 'null') {
+        alert("Het interval moet groter zijn dan 3 en kleiner dan 1000");
         return false;
     }
 
@@ -101,7 +89,9 @@ function addTruck() {
         if (!containers[i].hasChildNodes()) {
             let truck = new Truck(transportType, length, width, interval);
             Trucks.push(truck);
-            containers[i].appendChild(truck);
+            setTimeout(() => {
+                containers[i].appendChild(truck);
+            }, interval * 1000);
             break;
         }
     }
@@ -132,9 +122,25 @@ function submitApiForm() {
     let city = apiForm.elements[0].value;
 
     if (city === null || city === "") {
-        alert("De plaatsnaam moet een waarde hebben");
+        alert("De plaatsnaam mag niet leeg zijn");
         return false;
     }
 
-    stad = city;
+    return true;
 }
+
+addTruckButton.addEventListener('click', function () { showForm(truckForm); });
+
+addAssemblylineButton.addEventListener('click', function () { addAssemblyLine(); });
+
+assmblylineSettingsButton.addEventListener('click', function () { showForm(assemblyForm); });
+
+changeLocationButton.addEventListener('click', function () { showForm(locationForm); });
+
+changeHallButton.addEventListener('click', function () { switchHall() });
+
+truckSubmitButton.addEventListener('click', function () { addTruck() });
+
+assemblySubmitButton.addEventListener('click', function () { submitAssemblyForm() });
+
+locationSubmitButton.addEventListener('click', function () { submitApiForm() });

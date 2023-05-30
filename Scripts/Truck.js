@@ -2,11 +2,11 @@ let Trucks = [];
 let TrucksThatCantLeave = [];
 
 const TransportTypes = {
-    ColdTransport: "Cold tranport",
-    FragileTransport: "Fragile transport",
-    GeneralTransport: "General transport",
+    ColdTransport: "ColdTransport",
+    FragileTransport: "FragileTransport",
+    GeneralTransport: "GeneralTransport",
     Pallets: "Pallets",
-    FastTransport: "Fast transport"
+    FastTransport: "FastTransport"
 }
 
 class Truck extends HTMLElement {
@@ -25,7 +25,7 @@ class Truck extends HTMLElement {
         this.render();
     }
 
-    disconnectedCallback() {   
+    disconnectedCallback() {
         this.replaceChildren();
     }
 
@@ -58,47 +58,54 @@ class Truck extends HTMLElement {
         truckGrid.ondrop = drop;
         truckGrid.ondragover = allowDrop;
 
-        let leaveButton = document.createElement('button');
-        leaveButton.innerHTML = 'Go';
-        leaveButton.style.height = '25px';
-        leaveButton.style.width = '50px';
-
-        leaveButton.addEventListener('click', () => this.canLeave());
-
         let image = document.createElement('img');
         image.src = 'Assets/truck3.png';
         image.style.height = '250px';
+        image.addEventListener('mouseover', () => {
+            image.style.cursor = 'pointer';
+
+        })
+
+        image.addEventListener('click', () => this.canLeave());
 
         let icon = document.createElement('i');
 
-        switch(this.transportType){
-            case 'Cold transport':
-                icon.className = 'fa-solid';
-                icon.className = 'fa-snowflake';
+        switch (this.transportType) {
+            case 'ColdTransport':
+                icon.className = 'fa-solid fa-snowflake';
                 break;
-            case 'Fragile transport':
-                icon.className = 'fa-solid fa-square-fragile';
+            case 'FragileTransport':
+                icon.className = 'fa-solid fa-wine-glass-empty';
                 break;
-            case 'General transport':
-                icon.className = '<fa-solid fa-truck';
+            case 'GeneralTransport':
+                icon.className = 'fa-solid fa-truck';
                 break;
             case 'Pallets':
                 icon.className = 'fa-solid fa-pallet';
                 break;
-            case 'Fast transport':
+            case 'FastTransport':
                 icon.className = 'fa-solid fa-truck-fast';
                 break;
             default:
-                icon.className = '<fa-solid fa-truck';
+                icon.className = 'fa-solid fa-truck';
                 break;
         }
 
+        const animation = this.animate(
+            [
+                { transform: `translateX(500px)` },
+                { transform: `translateX(0px)` },
+            ],
+            {
+                duration: 5000,
+                iterations: 1,
+                fill: "forwards"
+            }
+        )
 
         this.appendChild(truckGrid);
-        this.appendChild(image);
-        this.appendChild(leaveButton);
         this.appendChild(icon);
-
+        this.appendChild(image);
     }
 
     show() {
@@ -133,7 +140,7 @@ class Truck extends HTMLElement {
         return true;
     }
 
-    canLeave() {
+    async canLeave() {
         getWeer().then((apiweer) => {
             let canLeave = false;
             switch (this.transportType) {
@@ -143,12 +150,12 @@ class Truck extends HTMLElement {
                     }
                     break;
                 case TransportTypes.FragileTransport:
-                    if(!['regen','sneeuw','halfbewolkt_regen'].includes(apiweer.weer)){
+                    if (!['regen', 'sneeuw', 'halfbewolkt_regen'].includes(apiweer.weer)) {
                         canLeave = true;
                     }
                     break;
                 case TransportTypes.Pallets:
-                    if (apiweer.windKracht < 7){
+                    if (apiweer.windKracht < 7) {
                         canLeave = true;
                     }
                     break;
@@ -160,22 +167,37 @@ class Truck extends HTMLElement {
             if (!canLeave) {
                 this.goToHall();
             }
-            this.leave();
+           
         });
+        this.leave();
         
-    }
-    
-    leave() {
-        //TODO animatie
-        
-        this.remove();
+
     }
 
-    goToHall(){
+    leave() {
+        const animation = this.animate(
+            [
+                { transform: `translateX(0px)` },
+                { transform: `translateX(500px)` },
+            ],
+            {
+                duration: 3000,
+                iterations: 1,
+                fill: "forwards"
+            }
+        );
+        animation.addEventListener('finish', () => {
+            this.remove(); // Use the stored reference to remove the element
+        });
+    }
+    
+    
+
+    goToHall() {
         TrucksThatCantLeave.push(this);
         this.replaceChildren();
     }
-    
+
     isFull() {
         for (let i = 0; i < this.space.length; i++) {
             for (let j = 0; j < this.space[i].length; j++) {

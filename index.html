@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+
     <title>Document</title>
     <script src="Scripts/Tetrominos.js" defer></script>
     <script src="Scripts/AssemblyLine.js" defer></script>
@@ -16,6 +16,7 @@
     <script src="Scripts/Forms.js" defer></script>
     <script src="Scripts/Init.js" defer></script>
     <script src="https://kit.fontawesome.com/fcb84065fc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -44,20 +45,20 @@
                     <option value="FastTransport">Fast transport</option>
                 </select>
                 <label>Interval in seconden</label>
-                <input class="NumberInput" max="3600" min="10" type="number">
-                <input type="button" value="Versturen" onClick="addTruck()" />
+                <input class="NumberInput" max="3600" min="3" type="number">
+                <input type="button" value="Versturen" id="TruckSubmit"/>
             </form>
             <form class="Form" name="assemblySettings" id="AssemblyForm">
                 <label>Interval tussen <br>pakketjes in seconden</label>
                 <input class="NumberInput" type="number" min="4" max="20" id="packetInterval">
                 <label>Snelheid van <br>pakketjes in seconden</label>
                 <input class="NumberInput" type="number" min="4" max="20" id="speed">
-                <input type="button" value="Versturen" onClick="submitAssemblyForm()" />
+                <input type="button" value="Versturen" id="AssemblySubmit"/>
             </form>
             <form class="Form" name="api" id="LocationForm">
                 <label>Plaatsnaam</label>
                 <input type="text" id="cityName">
-                <input type="button" value="Versturen" onClick="submitApiForm()" />
+                <input type="button" value="Versturen" id="LocationSubmit" />
             </form>
         </section>
         <section id="HallContainer">

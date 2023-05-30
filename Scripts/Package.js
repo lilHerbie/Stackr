@@ -4,7 +4,6 @@ class Package extends HTMLElement {
         super();
         this.shape = shape;
         this.color = color;
-        this.rotation = rotation;
     }
 
     connectedCallback() {
@@ -27,8 +26,6 @@ class Package extends HTMLElement {
                 }
             }
         }
-        //TODO
-        // gridContainer.rotation = this.rotation;
         this.draggable = true;
         this.ondragstart = drag;
     }
@@ -77,11 +74,6 @@ function getRandomColor() {
 function getRandomShape() {
     const randomIndex = Math.floor(Math.random() * tetrominoShapes.length);
     return tetrominoShapes[randomIndex];
-}
-
-function getRandomRotation() {
-    const randomIndex = Math.floor(Math.random()) * 4;
-    return randomIndex * 90;
 }
 
 customElements.define("package-element", Package);
