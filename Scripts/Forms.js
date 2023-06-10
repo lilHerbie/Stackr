@@ -89,9 +89,7 @@ function addTruck() {
         if (!containers[i].hasChildNodes()) {
             let truck = new Truck(transportType, length, width, interval);
             Trucks.push(truck);
-            setTimeout(() => {
-                containers[i].appendChild(truck);
-            }, interval * 1000);
+            containers[i].appendChild(truck);
             break;
         }
     }
