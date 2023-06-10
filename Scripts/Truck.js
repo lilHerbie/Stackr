@@ -20,6 +20,7 @@ class Truck extends HTMLElement {
         this.available = true;
         this.truckId = truckcount++;
         this.renderd = false;
+        this.aankomt = true;
     }
 
     connectedCallback() {
@@ -98,17 +99,22 @@ class Truck extends HTMLElement {
                 break;
         }
 
-        // const animation = this.animate(
-        //     [
-        //         { transform: `translateX(500px)` },
-        //         { transform: `translateX(0px)` },
-        //     ],
-        //     {
-        //         duration: 1000,
-        //         iterations: 1,
-        //         fill: "forwards"
-        //     }
-        // )
+        if (this.aankomt) {
+
+            const animation = this.animate(
+                [
+                    { transform: `translateX(500px)` },
+                    { transform: `translateX(0px)` },
+                ],
+                {
+                    duration: 2000,
+                    iterations: 1,
+                    fill: "forwards"
+                }
+            )
+        } 
+
+        this.aankomt = false;
 
         this.appendChild(truckGrid);
         this.appendChild(icon);
@@ -153,7 +159,7 @@ class Truck extends HTMLElement {
             let canLeave = false;
             switch (this.transportType) {
                 case TransportTypes.ColdTransport:
-                    if (apiweer.tempratuur < 1) {
+                    if (apiweer.tempratuur < 35) {
                         canLeave = true;
                     }
                     break;
@@ -171,7 +177,6 @@ class Truck extends HTMLElement {
                     canLeave = true;
                     break;
             }
-
             // if (!canLeave) {
             //     this.goToHall();
             // }
@@ -182,26 +187,26 @@ class Truck extends HTMLElement {
     }
 
     leave() {
-        // const animation = this.animate(
-        //     [
-        //         { transform: `translateX(0px)` },
-        //         { transform: `translateX(500px)` },
-        //     ],
-        //     {
-        //         duration: 1000,
-        //         iterations: 1,
-        //         fill: "forwards"
-        //     }
-        // );
-        // animation.addEventListener('finish', () => {
+        const animation = this.animate(
+            [
+                { transform: `translateX(0px)` },
+                { transform: `translateX(500px)` },
+            ],
+            {
+                duration: 1000,
+                iterations: 1,
+                fill: "forwards"
+            }
+        );
+        animation.addEventListener('finish', () => {
             this.remove(); // Use the stored reference to remove the element
-        // });
+        });
     }
 
     goToHall() {
         console.log(this.childNodes[0]);
         TrucksThatCantLeave.push(this);
-        // this.replaceChildren();
+        this.replaceChildren();
     }
 
     isFull() {
