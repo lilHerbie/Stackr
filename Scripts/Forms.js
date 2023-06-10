@@ -78,7 +78,7 @@ function addTruck() {
         alert("Het transporttype mag niet nul zijn");
         return false;
     }
-    if ((interval < 3 || interval > 1000) || interval === 'null') {
+    if ((interval < 1 || interval > 1000) || interval === 'null') {
         alert("Het interval moet groter zijn dan 3 en kleiner dan 1000");
         return false;
     }
@@ -89,7 +89,12 @@ function addTruck() {
         if (!containers[i].hasChildNodes()) {
             let truck = new Truck(transportType, length, width, interval);
             Trucks.push(truck);
-            containers[i].appendChild(truck);
+            let removeElement = document.createElement('div');
+            containers[i].appendChild(removeElement);
+            setTimeout(() => {
+                containers[i].appendChild(truck);
+                removeElement.remove();
+            }, interval * 1000);
             break;
         }
     }
