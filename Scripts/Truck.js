@@ -58,6 +58,17 @@ class Truck extends HTMLElement {
         truckGrid.ondrop = drop;
         truckGrid.ondragover = allowDrop;
 
+        for (let i = 0; i < this.space.length; i++) {
+            for (let j = 0; j < this.space[0].length; j++) {
+                if (this.space[i][j] == 1) {
+                    let element = document.getElementById('truck-' + this.truckId + ':' + (j) + ':' + (i));
+                    element.style.backgroundColor = color;
+                    element.style.border = 'black solid 1px';
+                    
+                }
+            }
+        }
+
         let image = document.createElement('img');
         image.src = 'Assets/truck3.png';
         image.style.height = '250px';
@@ -169,7 +180,7 @@ class Truck extends HTMLElement {
             }
            
         });
-        this.leave();
+        this.goToHall();
         
 
     }
