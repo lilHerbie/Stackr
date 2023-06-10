@@ -127,7 +127,7 @@ class Truck extends HTMLElement {
             for (let j = 0; j < arr[0].length; j++) {
                 if ((posx + i < 0 || posy + j < 0 || posx + i >= this.space.length || posy + j >= this.space[0].length) && arr[i][j] === 1) {
                     return false;
-                } else if ((posx + i >= 0 && posy + j >= 0 && posx + i < this.space.length && posy + j < this.space[0].length) && this.space[posx + i][posy + j] === 1 && arr[i][j] === 1) {
+                } else if ((posx + i >= 0 && posy + j >= 0 && posx + i < this.space.length && posy + j < this.space[0].length) && this.space[posx + i][posy + j] != 0 && arr[i][j] === 1) {
                     return false;
                 }
             }
