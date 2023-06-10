@@ -102,17 +102,17 @@ class Truck extends HTMLElement {
                 break;
         }
 
-        const animation = this.animate(
-            [
-                { transform: `translateX(500px)` },
-                { transform: `translateX(0px)` },
-            ],
-            {
-                duration: 5000,
-                iterations: 1,
-                fill: "forwards"
-            }
-        )
+        // const animation = this.animate(
+        //     [
+        //         { transform: `translateX(500px)` },
+        //         { transform: `translateX(0px)` },
+        //     ],
+        //     {
+        //         duration: 1000,
+        //         iterations: 1,
+        //         fill: "forwards"
+        //     }
+        // )
 
         this.appendChild(truckGrid);
         this.appendChild(icon);
@@ -151,12 +151,12 @@ class Truck extends HTMLElement {
         return true;
     }
 
-    async canLeave() {
+    canLeave() {
         getWeer().then((apiweer) => {
             let canLeave = false;
             switch (this.transportType) {
                 case TransportTypes.ColdTransport:
-                    if (apiweer.tempratuur < 35) {
+                    if (apiweer.tempratuur < 1) {
                         canLeave = true;
                     }
                     break;
@@ -179,34 +179,32 @@ class Truck extends HTMLElement {
                 this.goToHall();
             }
            
+            this.leave();
         });
-        this.goToHall();
-        
-
+        this.goToHall();      
     }
 
     leave() {
-        const animation = this.animate(
-            [
-                { transform: `translateX(0px)` },
-                { transform: `translateX(500px)` },
-            ],
-            {
-                duration: 3000,
-                iterations: 1,
-                fill: "forwards"
-            }
-        );
-        animation.addEventListener('finish', () => {
+        // const animation = this.animate(
+        //     [
+        //         { transform: `translateX(0px)` },
+        //         { transform: `translateX(500px)` },
+        //     ],
+        //     {
+        //         duration: 1000,
+        //         iterations: 1,
+        //         fill: "forwards"
+        //     }
+        // );
+        // animation.addEventListener('finish', () => {
             this.remove(); // Use the stored reference to remove the element
-        });
+        // });
     }
-    
-    
 
     goToHall() {
+        console.log(this.childNodes[0]);
         TrucksThatCantLeave.push(this);
-        this.replaceChildren();
+        // this.replaceChildren();
     }
 
     isFull() {

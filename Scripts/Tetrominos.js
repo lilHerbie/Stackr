@@ -1,4 +1,4 @@
-const colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "gray"];
+const colors = ["red", "blue", "green", "yellow", "purple", "orange", "brown", "gray"];
 
 const tetrominoShapes = [
 
