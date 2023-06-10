@@ -28,13 +28,10 @@ class Truck extends HTMLElement {
             this.render();
             this.renderd = true;
         }
-        // else{
-        //     this.style.display = 'flex';
-        // }
     }
 
     disconnectedCallback() {
-        // this.remove();
+       //do nothing
     }
 
     render() {
@@ -177,13 +174,11 @@ class Truck extends HTMLElement {
                     canLeave = true;
                     break;
             }
-            // if (!canLeave) {
-            //     this.goToHall();
-            // }
-           
-            // this.leave();
-        });
-        this.goToHall();      
+            if (!canLeave) {
+                this.goToHall();
+            }     
+            this.leave();
+        });   
     }
 
     leave() {
@@ -199,14 +194,15 @@ class Truck extends HTMLElement {
             }
         );
         animation.addEventListener('finish', () => {
-            this.remove(); // Use the stored reference to remove the element
+            this.remove();
         });
     }
 
     goToHall() {
         console.log(this.childNodes[0]);
         TrucksThatCantLeave.push(this);
-        this.replaceChildren();
+        parent = this.parentElement;
+        parent.childNodes[0].remove();
     }
 
     isFull() {
