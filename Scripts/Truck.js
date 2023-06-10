@@ -19,14 +19,21 @@ class Truck extends HTMLElement {
         this.space = new Array(length).fill().map(() => new Array(width).fill(0));
         this.available = true;
         this.truckId = truckcount++;
+        this.renderd = false;
     }
 
     connectedCallback() {
-        this.render();
+        if(!this.renderd){
+            this.render();
+            this.renderd = true;
+        }
+        // else{
+        //     this.style.display = 'flex';
+        // }
     }
 
     disconnectedCallback() {
-        this.replaceChildren();
+        // this.remove();
     }
 
     render() {
@@ -57,17 +64,6 @@ class Truck extends HTMLElement {
 
         truckGrid.ondrop = drop;
         truckGrid.ondragover = allowDrop;
-
-        for (let i = 0; i < this.space.length; i++) {
-            for (let j = 0; j < this.space[0].length; j++) {
-                if (this.space[i][j] == 1) {
-                    let element = document.getElementById('truck-' + this.truckId + ':' + (j) + ':' + (i));
-                    element.style.backgroundColor = color;
-                    element.style.border = 'black solid 1px';
-                    
-                }
-            }
-        }
 
         let image = document.createElement('img');
         image.src = 'Assets/truck3.png';
@@ -128,7 +124,7 @@ class Truck extends HTMLElement {
             for (let j = 0; j < arr[0].length; j++) {
                 if ((posx + i < 0 || posy + j < 0 || posx + i >= this.space.length || posy + j >= this.space[0].length) && arr[i][j] === 1) {
                     return false;
-                } else if ((posx + i >= 0 && posy + j >= 0 && posx + i < this.space.length && posy + j < this.space[0].length) && this.space[posx + i][posy + j] === 1 && arr[i][j] === 1) {
+                } else if ((posx + i >= 0 && posy + j >= 0 && posx + i < this.space.length && posy + j < this.space[0].length) && this.space[posx + i][posy + j] === 1 && arr[i][j] === "black") {
                     return false;
                 }
             }
@@ -136,10 +132,11 @@ class Truck extends HTMLElement {
 
         for (let i = 0; i < arr.length; i++) {
             for (let j = 0; j < arr[0].length; j++) {
-                if (arr[i][j] == 1) {
+                if (arr[i][j] === 1) {
                     let element = document.getElementById('truck-' + this.truckId + ':' + (posy + j) + ':' + (posx + i));
                     element.style.backgroundColor = color;
                     element.style.border = 'black solid 1px';
+                    arr[i][j] = color;
                     this.space[posx + i][posy + j] = arr[i][j];
                 }
             }
@@ -175,11 +172,11 @@ class Truck extends HTMLElement {
                     break;
             }
 
-            if (!canLeave) {
-                this.goToHall();
-            }
+            // if (!canLeave) {
+            //     this.goToHall();
+            // }
            
-            this.leave();
+            // this.leave();
         });
         this.goToHall();      
     }

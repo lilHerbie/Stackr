@@ -40,6 +40,7 @@ function switchHall() {
     else if (truckHallContainer.style.display === 'flex') {
         truckHallContainer.style.display = 'none';
         hallContainer.style.display = 'flex';
+        truckHallContainer.replaceChildren();
     }
 }
 
