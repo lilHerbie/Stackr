@@ -24,14 +24,14 @@ class Truck extends HTMLElement {
     }
 
     connectedCallback() {
-        if(!this.renderd){
+        if (!this.renderd) {
             this.render();
             this.renderd = true;
         }
     }
 
     disconnectedCallback() {
-       //do nothing
+        //do nothing
     }
 
     render() {
@@ -109,7 +109,7 @@ class Truck extends HTMLElement {
                     fill: "forwards"
                 }
             )
-        } 
+        }
 
         this.aankomt = false;
 
@@ -153,32 +153,35 @@ class Truck extends HTMLElement {
 
     canLeave() {
         getWeer().then((apiweer) => {
-            let canLeave = false;
-            switch (this.transportType) {
-                case TransportTypes.ColdTransport:
-                    if (apiweer.tempratuur < 35) {
-                        canLeave = true;
-                    }
-                    break;
-                case TransportTypes.FragileTransport:
-                    if (!['regen', 'sneeuw', 'halfbewolkt_regen'].includes(apiweer.weer)) {
-                        canLeave = true;
-                    }
-                    break;
-                case TransportTypes.Pallets:
-                    if (apiweer.windKracht < 7) {
-                        canLeave = true;
-                    }
-                    break;
-                default:
-                    canLeave = true;
-                    break;
-            }
-            if (!canLeave) {
+            if (!this.truckTypesCanLeave(apiweer)) {
                 this.goToHall();
-            }     
+            }
             this.leave();
-        });   
+        });
+    }
+
+    truckTypesCanLeave(apiweer) {
+        let canLeave = false;
+        switch (this.transportType) {
+            case TransportTypes.ColdTransport:
+                if (apiweer.tempratuur < 35) {
+                    canLeave = true;
+                }
+                break;
+            case TransportTypes.FragileTransport:
+                if (!['regen', 'sneeuw', 'halfbewolkt_regen'].includes(apiweer.weer)) {
+                    canLeave = true;
+                }
+                break;
+            case TransportTypes.Pallets:
+                if (apiweer.windKracht < 7) {
+                    canLeave = true;
+                }
+                break;
+            default:
+                canLeave = true;
+                break;
+        }
     }
 
     leave() {
